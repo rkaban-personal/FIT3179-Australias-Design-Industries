@@ -11,3 +11,14 @@ h1,h2,h3{font-family:var(--heading);font-weight:500;line-height:1.12;letter-spac
 @media print{.chapters,.control,.chart-tools,.skip,.jump{display:none}.two{display:block}.chart-card{break-inside:avoid;margin-bottom:25px}.chapter{padding-top:20px}.hero{padding-top:20px}.hero-art img{height:300px}h1{font-size:70px}body{background:white}.closing{background:var(--sage);color:var(--ink)}}
 
 .economy-key{padding:18px 0;border-bottom:1px solid var(--line)}
+
+/* Exact values stay readable when geographic symbols or area cells are small. */
+.chart-reading-note{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:18px;color:var(--muted);max-width:76ch}
+.chart-reading-note p{margin:0 0 10px}
+.map-counts{margin:0;font-variant-numeric:tabular-nums;color:var(--ink)}
+.map-counts>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:6px 0;border-bottom:1px solid var(--line)}
+.map-counts dd{margin:0;font-weight:bold}
+.data-link{display:block;max-width:100%;min-height:44px;padding:10px 0;border:0;background:transparent;color:var(--accent);font:inherit;text-align:left;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.data-link:hover{text-decoration-thickness:2px}
+.data-link:focus-visible{outline:3px solid var(--ochre);outline-offset:5px}
+@media print{.data-link{display:none}}

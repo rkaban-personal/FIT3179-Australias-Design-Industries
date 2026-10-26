@@ -42,7 +42,7 @@ function alignFigureStarts(){
 }
 async function equivalentTable(item,figure){
  const rows=await jsonResource('data/'+item.csv+'.json');const wrapper=element('div');wrapper.className='chart-tools';
- const details=element('details');const summary=element('summary','Read the data — '+item.title);details.append(summary);
+ const details=element('details');details.id='data-'+item.id;const summary=element('summary','Read the data — '+item.title);details.append(summary);
  const scroll=element('div');scroll.className='table-scroll';scroll.tabIndex=0;scroll.setAttribute('role','region');scroll.setAttribute('aria-label',item.title+' data table');
  const table=element('table');const caption=element('caption',item.title);caption.className='quiet';table.append(caption);const head=element('thead');const hrow=element('tr');
  Object.values(item.columns).forEach(label=>{const th=element('th',label);th.scope='col';hrow.append(th);});head.append(hrow);table.append(head);const body=element('tbody');
@@ -89,6 +89,14 @@ async function main(){
  await document.fonts.ready;
  alignFigureStarts();
  await Promise.all(manifest.map(async(item,index)=>{const figure=document.querySelector('[data-chart="'+item.id+'"]');await equivalentTable(item,figure);await renderChart(item,specs[index]);}));
+ // Nearby reading notes open the matching native table and move keyboard focus there.
+ document.querySelectorAll('[data-open-table]').forEach(button=>button.addEventListener('click',()=>{
+  const details=document.getElementById(button.dataset.openTable);
+  if(!details)return;
+  details.open=true;
+  details.querySelector('summary').focus({preventScroll:true});
+  details.scrollIntoView({block:'nearest',behavior:'auto'});
+ }));
  const roleSelect=document.getElementById('role-profile');
  [...new Set(resources.get('data/industry-profiles.json').map(row=>row.occupation))].forEach(role=>roleSelect.append(element('option',role)));
  roleSelect.addEventListener('change',async event=>{settings.role=event.target.value;await views.get('industry-profiles').signal('chosenRole',settings.role).runAsync();document.getElementById('profile-status').textContent=settings.role==='All occupations'?'Three example profiles are emphasised; all eight remain visible.':settings.role+' highlighted. Every other profile stays visible for comparison.';});
