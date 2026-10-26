@@ -1,0 +1,142 @@
+[
+  {
+    "id": "history",
+    "csv": "history",
+    "title": "A historical expansion",
+    "columns": {
+      "occupation": "Occupation",
+      "year": "Year",
+      "people": "People"
+    }
+  },
+  {
+    "id": "workforce",
+    "csv": "workforce",
+    "title": "Different jobs, different working patterns",
+    "columns": {
+      "occupation": "Occupation",
+      "employment": "People (rounded)",
+      "female_pct": "Female (%)",
+      "part_time_pct": "Part-time (%)"
+    }
+  },
+  {
+    "id": "industry-profiles",
+    "csv": "industry-profiles",
+    "title": "Where designers work",
+    "columns": {
+      "occupation": "Occupation",
+      "industry": "Employer industry",
+      "share_pct": "Share of occupation (%)",
+      "year": "Census year"
+    }
+  },
+  {
+    "id": "concentration",
+    "csv": "states",
+    "title": "Concentration relative to all businesses",
+    "columns": {
+      "state": "State or territory",
+      "businesses": "Design businesses",
+      "all_businesses": "All businesses",
+      "per_1000": "Per 1,000"
+    }
+  },
+  {
+    "id": "business-map",
+    "csv": "states",
+    "title": "The largest counts sit in the east",
+    "columns": {
+      "state": "State or territory",
+      "businesses": "Design businesses"
+    }
+  },
+  {
+    "id": "business-mosaic",
+    "csv": "business-mosaic",
+    "title": "Small organisations dominate",
+    "columns": {
+      "industry": "Industry",
+      "category": "Employment size",
+      "businesses": "Businesses",
+      "share": "Share"
+    }
+  },
+  {
+    "id": "business-change",
+    "csv": "business-change",
+    "title": "A small net gain masks larger turnover",
+    "columns": {
+      "stage": "Stage",
+      "value": "Businesses"
+    }
+  },
+  {
+    "id": "state-exit-rates",
+    "csv": "state-exit-rates",
+    "title": "How state exit rates vary",
+    "columns": {
+      "industry": "Business class",
+      "state": "State or territory",
+      "exit_rate_pct": "Published exit rate (%)",
+      "start_total": "Starting businesses",
+      "exits": "Exits",
+      "period": "Period"
+    }
+  },
+  {
+    "id": "economy",
+    "csv": "economy",
+    "title": "A wider definition creates a wider estimate",
+    "columns": {
+      "sector": "Sector",
+      "component": "Component",
+      "value_millions": "AUD millions (2019)",
+      "period": "Reference period"
+    }
+  },
+  {
+    "id": "education",
+    "csv": "education",
+    "title": "Three study fields take different paths",
+    "columns": {
+      "year": "Year",
+      "field": "Field",
+      "commencements": "Commencements",
+      "index_2015": "2015 = 100",
+      "index_2012": "2012 = 100"
+    }
+  },
+  {
+    "id": "ip-history",
+    "csv": "ip-history",
+    "title": "Overseas filings account for most growth",
+    "columns": {
+      "year": "Year",
+      "residency": "Residency",
+      "applications": "Applications"
+    }
+  },
+  {
+    "id": "filing-map",
+    "csv": "filing-flows",
+    "title": "Where overseas applications came from",
+    "columns": {
+      "origin": "Origin location",
+      "applications": "Applications"
+    }
+  },
+  {
+    "id": "classification",
+    "csv": "classification-links",
+    "title": "New labels redraw the boundaries",
+    "columns": {
+      "source": "ANZSCO 2022",
+      "source_code": "Old code",
+      "target": "OSCA 2024",
+      "target_code": "New code",
+      "source_part_only": "Old part only",
+      "target_part_only": "New part only"
+    }
+  }
+]
