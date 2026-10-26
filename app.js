@@ -42,12 +42,12 @@ function alignFigureStarts(){
 }
 async function equivalentTable(item,figure){
  const rows=await jsonResource('data/'+item.csv+'.json');const wrapper=element('div');wrapper.className='chart-tools';
- const details=element('details');details.id='data-'+item.id;const summary=element('summary','Read the data — '+item.title);details.append(summary);
+ const details=element('details');details.id='data-'+item.id;const summary=element('summary','Read the data: '+item.title);details.append(summary);
  const scroll=element('div');scroll.className='table-scroll';scroll.tabIndex=0;scroll.setAttribute('role','region');scroll.setAttribute('aria-label',item.title+' data table');
  const table=element('table');const caption=element('caption',item.title);caption.className='quiet';table.append(caption);const head=element('thead');const hrow=element('tr');
  Object.values(item.columns).forEach(label=>{const th=element('th',label);th.scope='col';hrow.append(th);});head.append(hrow);table.append(head);const body=element('tbody');
  rows.forEach(row=>{const tr=element('tr');Object.keys(item.columns).forEach(key=>tr.append(element('td',number(row[key],key))));body.append(tr);});table.append(body);scroll.append(table);details.append(scroll);wrapper.append(details);
- const links=element('p');for(const [label,path] of [['Download CSV','data/'+item.csv+'.csv'],['Chart specification','specs/'+item.id+'.json']]){const a=element('a',label);a.href=path;a.setAttribute('aria-label',label+' — '+item.title);if(label.includes('CSV'))a.download='';links.append(a);}wrapper.append(links);figure.after(wrapper);
+ const links=element('p');for(const [label,path] of [['Download CSV','data/'+item.csv+'.csv'],['Chart specification','specs/'+item.id+'.json']]){const a=element('a',label);a.href=path;a.setAttribute('aria-label',label+': '+item.title);if(label.includes('CSV'))a.download='';links.append(a);}wrapper.append(links);figure.after(wrapper);
 }
 async function renderChart(item,spec){
  const holder=document.getElementById('chart-'+item.id);const width=Math.max(240,Math.floor(holder.clientWidth));const copy=structuredClone(spec);bindData(copy);
