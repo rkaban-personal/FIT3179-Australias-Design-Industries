@@ -107,7 +107,7 @@
             "value": 0.8
           },
           "tooltip": {
-            "signal": "{'From': datum.source+' '+datum.source_code, 'To': datum.target+' '+datum.target_code, 'Old code part only':datum.source_part_only, 'New code part only':datum.target_part_only, 'Weight':'None — conceptual link'}"
+            "signal": "{'From': datum.source+' '+datum.source_code, 'To': datum.target+' '+datum.target_code, 'Old code part only':datum.source_part_only, 'New code part only':datum.target_part_only, 'Weight':'None (conceptual link)'}"
           }
         }
       }
