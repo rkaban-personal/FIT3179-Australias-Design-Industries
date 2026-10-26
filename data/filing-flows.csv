@@ -1,0 +1,6 @@
+origin,destination,origin_longitude,origin_latitude,destination_longitude,destination_latitude,applications,year,map_key,label_longitude,label_latitude
+United States,Australia,-97.482602,39.538479,134.04972,-24.129522,2575,2025,1,-107,58
+China,Australia,106.337289,32.498178,134.04972,-24.129522,1715,2025,2,91,49
+United Kingdom,Australia,-2.116346,54.402739,134.04972,-24.129522,369,2025,3,-25,68
+Switzerland,Australia,7.463965,46.719114,134.04972,-24.129522,298,2025,4,33,46
+Hong Kong,Australia,114.023067,22.41414,134.04972,-24.129522,248,2025,5,137,10

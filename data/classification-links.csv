@@ -1,0 +1,11 @@
+source,target,source_code,target_code,sy,ty,partial,source_part_only,target_part_only
+Multimedia Designer,Multimedia Designer,232413,242131,190,215,True,True,True
+Multimedia Specialist,Multimedia Designer,261211,242131,260,215,True,True,True
+User Experience Designer,UI / UX Designer,261113,242132,25,25,False,False,False
+Industrial Designer,Industrial Designer,232312,242232,100,90,True,True,False
+Industrial Designer,Textile Designer,232312,242234,100,140,True,True,False
+Graphic Designer,Animator or Visual Effects Artist,232411,242331,340,295,True,True,True
+Illustrator,Animator or Visual Effects Artist,232412,242331,420,295,True,True,True
+Multimedia Designer,Animator or Visual Effects Artist,232413,242331,190,295,True,True,True
+Graphic Designer,Graphic Designer,232411,242332,340,365,True,True,False
+Illustrator,Illustrator,232412,242333,420,420,True,True,False

@@ -1,0 +1,9 @@
+occupation,employment,female_pct,part_time_pct,median_age,year,classification,label,label_x_wide,label_y_wide,label_x_narrow,label_y_narrow
+Architect,19600,34.5,19.2,40,2021,OSCA 2024 v1.0; experimental Census estimates,Architect,18,23,7,27
+Multimedia Designer,2300,46.3,23.6,38,2021,OSCA 2024 v1.0; experimental Census estimates,Multimedia,57,23,65,21
+UI / UX Designer,3000,49.5,11.4,34,2021,OSCA 2024 v1.0; experimental Census estimates,UI/UX,52,6,54,6
+Web Designer,5700,47.0,31.0,36,2021,OSCA 2024 v1.0; experimental Census estimates,Web,33,32,17,33
+Fashion Designer,4000,76.6,33.4,37,2021,OSCA 2024 v1.0; experimental Census estimates,Fashion,85,28,83,27
+Industrial Designer,3000,30.7,16.2,35,2021,OSCA 2024 v1.0; experimental Census estimates,Industrial,19,11,7,12
+Graphic Designer,27000,60.0,37.2,37,2021,OSCA 2024 v1.0; experimental Census estimates,Graphic,56,45,45,45
+Interior Designer,12300,79.7,37.4,39,2021,OSCA 2024 v1.0; experimental Census estimates,Interior,87,45,83,47
