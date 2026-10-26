@@ -22,3 +22,11 @@ h1,h2,h3{font-family:var(--heading);font-weight:500;line-height:1.12;letter-spac
 .data-link:hover{text-decoration-thickness:2px}
 .data-link:focus-visible{outline:3px solid var(--ochre);outline-offset:5px}
 @media print{.data-link{display:none}}
+
+/* Supporting notes retain readable type without competing with the story. */
+.methods .credits-heading{margin-top:48px}
+.methods .ai-credit{font-size:17px;line-height:1.6;color:var(--muted);max-width:78ch}
+.data-guide{max-width:1000px}
+.data-guide h1{font-size:clamp(42px,6vw,72px)}
+.data-guide h2{margin-top:44px}
+.data-guide h3{margin-top:32px;margin-bottom:12px}
