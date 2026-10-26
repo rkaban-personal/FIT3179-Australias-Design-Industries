@@ -1,0 +1,554 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Parallel coordinates, rotated for small screens: five shared 0–100% industry axes compare the published within-occupation shares of eight OSCA occupations. JSA experimental estimates from the 2021 Census. Each path is an occupation, not a flow. Selected sectors do not total 100%.",
+  "width": 1000,
+  "padding": 8,
+  "autosize": "none",
+  "background": "transparent",
+  "config": {
+    "font": "\"Source Sans 3\"",
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "fill": "#253c39"
+    },
+    "axis": {
+      "labelFont": "\"Source Sans 3\"",
+      "titleFont": "\"Source Sans 3\"",
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#cdd5cc"
+    }
+  },
+  "height": 660,
+  "signals": [
+    {
+      "name": "chosenRole",
+      "value": "All occupations"
+    },
+    {
+      "name": "narrow",
+      "update": "width < 500"
+    },
+    {
+      "name": "labelWidth",
+      "update": "narrow ? 114 : 174"
+    },
+    {
+      "name": "axisTop",
+      "value": 130
+    },
+    {
+      "name": "axisStep",
+      "value": 112
+    }
+  ],
+  "data": [
+    {
+      "name": "profiles",
+      "url": "data/industry-profiles.json",
+      "transform": [
+        {
+          "type": "formula",
+          "as": "default_focus",
+          "expr": "indexof(['Architect','Industrial Designer','Multimedia Designer'], datum.occupation) >= 0"
+        },
+        {
+          "type": "formula",
+          "as": "is_highlighted",
+          "expr": "chosenRole == 'All occupations' ? datum.default_focus : datum.occupation == chosenRole"
+        },
+        {
+          "type": "collect",
+          "sort": {
+            "field": [
+              "is_highlighted",
+              "occupation",
+              "axis_order"
+            ],
+            "order": [
+              "ascending",
+              "ascending",
+              "ascending"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "axes",
+      "values": [
+        {
+          "axis_order": 0,
+          "label": [
+            "Professional,",
+            "scientific &",
+            "technical"
+          ]
+        },
+        {
+          "axis_order": 1,
+          "label": [
+            "Manufacturing"
+          ]
+        },
+        {
+          "axis_order": 2,
+          "label": [
+            "Retail"
+          ]
+        },
+        {
+          "axis_order": 3,
+          "label": [
+            "Finance &",
+            "insurance"
+          ]
+        },
+        {
+          "axis_order": 4,
+          "label": [
+            "Education &",
+            "training"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ticks",
+      "values": [
+        {
+          "pct": 0
+        },
+        {
+          "pct": 25
+        },
+        {
+          "pct": 50
+        },
+        {
+          "pct": 75
+        },
+        {
+          "pct": 100
+        }
+      ],
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!narrow || datum.pct % 50 == 0"
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "values": [
+        {
+          "index": 0,
+          "label": "Architect",
+          "color": "#285f60"
+        },
+        {
+          "index": 1,
+          "label": "Industrial",
+          "color": "#956125"
+        },
+        {
+          "index": 2,
+          "label": "Multimedia",
+          "color": "#775264"
+        },
+        {
+          "index": 3,
+          "label": "Other five",
+          "color": "#80918b"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "share",
+      "type": "linear",
+      "domain": [
+        0,
+        100
+      ],
+      "range": [
+        {
+          "signal": "labelWidth"
+        },
+        {
+          "signal": "width - 12"
+        }
+      ],
+      "zero": true,
+      "nice": false
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "value": 2
+          },
+          "text": {
+            "signal": "narrow ? ['Share of each occupation','working in each industry (%)'] : 'Share of each occupation working in each industry (%)'"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "value": 18
+          },
+          "fill": {
+            "value": "#253c39"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "lineHeight": {
+            "value": 22
+          }
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {
+        "data": "legend"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(datum.index % (narrow ? 2 : 4)) * (width / (narrow ? 2 : 4)) + 5"
+          },
+          "y": {
+            "signal": "(narrow ? 62 : 44) + floor(datum.index / (narrow ? 2 : 4)) * 25"
+          },
+          "size": {
+            "value": 64
+          },
+          "fill": {
+            "field": "color"
+          },
+          "opacity": {
+            "signal": "chosenRole == 'All occupations' ? 1 : 0"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(datum.index % (narrow ? 2 : 4)) * (width / (narrow ? 2 : 4)) + 17"
+          },
+          "y": {
+            "signal": "(narrow ? 62 : 44) + floor(datum.index / (narrow ? 2 : 4)) * 25"
+          },
+          "text": {
+            "field": "label"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "value": 16
+          },
+          "fill": {
+            "value": "#253c39"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "opacity": {
+            "signal": "chosenRole == 'All occupations' ? 1 : 0"
+          }
+        }
+      },
+      "from": {
+        "data": "legend"
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "signal": "narrow ? 59 : 39"
+          },
+          "text": {
+            "signal": "chosenRole == 'All occupations' ? '' : ['Highlighted occupation:', chosenRole]"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "value": 16
+          },
+          "fill": {
+            "value": "#285f60"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "lineHeight": {
+            "value": 22
+          }
+        }
+      }
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": "axes"
+      },
+      "encode": {
+        "update": {
+          "y": {
+            "signal": "axisTop + datum.axis_order * axisStep"
+          }
+        }
+      },
+      "marks": [
+        {
+          "type": "rule",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "labelWidth"
+              },
+              "x2": {
+                "signal": "width - 12"
+              },
+              "y": {
+                "value": 0
+              },
+              "stroke": {
+                "value": "#cdd5cc"
+              },
+              "strokeWidth": {
+                "value": 1
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "share",
+                "field": "pct"
+              },
+              "y": {
+                "value": -4
+              },
+              "y2": {
+                "value": 4
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "share",
+                "field": "pct"
+              },
+              "y": {
+                "value": -12
+              },
+              "text": {
+                "signal": "datum.pct + '%'"
+              },
+              "align": {
+                "signal": "datum.pct == 100 ? 'right' : datum.pct == 0 ? 'left' : 'center'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "labelWidth - 12"
+              },
+              "y": {
+                "value": -10
+              },
+              "text": {
+                "signal": "parent.label"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "value": "right"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "lineHeight": {
+                "value": 19
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "occupationProfile",
+          "data": "profiles",
+          "groupby": "occupation"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "from": {
+            "data": "occupationProfile"
+          },
+          "sort": {
+            "field": "datum.axis_order"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "share",
+                "field": "share_pct"
+              },
+              "y": {
+                "signal": "axisTop + datum.axis_order * axisStep"
+              },
+              "stroke": {
+                "signal": "chosenRole != 'All occupations' ? (datum.occupation == chosenRole ? '#285f60' : '#80918b') : datum.occupation == 'Architect' ? '#285f60' : datum.occupation == 'Industrial Designer' ? '#956125' : datum.occupation == 'Multimedia Designer' ? '#775264' : '#80918b'"
+              },
+              "strokeWidth": {
+                "signal": "(datum.is_highlighted) ? 2.8 : 1.3"
+              },
+              "opacity": {
+                "signal": "(datum.is_highlighted) ? 0.95 : 0.22"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "symbol",
+      "from": {
+        "data": "profiles"
+      },
+      "sort": {
+        "field": "datum.is_highlighted",
+        "order": "ascending"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "scale": "share",
+            "field": "share_pct"
+          },
+          "y": {
+            "signal": "axisTop + datum.axis_order * axisStep"
+          },
+          "size": {
+            "signal": "(datum.is_highlighted) ? 85 : 38"
+          },
+          "fill": {
+            "signal": "chosenRole != 'All occupations' ? (datum.occupation == chosenRole ? '#285f60' : '#80918b') : datum.occupation == 'Architect' ? '#285f60' : datum.occupation == 'Industrial Designer' ? '#956125' : datum.occupation == 'Multimedia Designer' ? '#775264' : '#80918b'"
+          },
+          "stroke": {
+            "value": "white"
+          },
+          "strokeWidth": {
+            "value": 0.6
+          },
+          "opacity": {
+            "signal": "(datum.is_highlighted) ? 1 : 0.4"
+          },
+          "tooltip": {
+            "signal": "{'Occupation': datum.occupation, 'Industry': datum.industry, 'Within-occupation share': format(datum.share_pct, '.1f') + '%', 'Reference year': datum.year, 'Classification': datum.classification, 'Status': datum.estimate_status}"
+          },
+          "description": {
+            "signal": "datum.occupation + ', ' + datum.industry + ': ' + format(datum.share_pct, '.1f') + ' percent; 2021 experimental Census estimate'"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "value": 610
+          },
+          "text": {
+            "signal": "narrow ? ['One path = one occupation.', 'Five sectors do not total 100%.'] : 'Each path follows one occupation. These five sectors do not sum to 100%.'"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "value": 16
+          },
+          "fill": {
+            "value": "#253c39"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "lineHeight": {
+            "value": 21
+          }
+        }
+      }
+    }
+  ]
+}

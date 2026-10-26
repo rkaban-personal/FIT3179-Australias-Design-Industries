@@ -1,0 +1,248 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Historical published economic estimates in millions of constant 2019 AUD. Exact-area nested treemap: sector identifiers1\u20134 refer to the accompanying sector key; light leaves are embedded contributions. Mixed reference periods, not a current market size.",
+  "width": 1000,
+  "height": 520,
+  "padding": 3,
+  "autosize": "none",
+  "usermeta": {
+    "sectorKey": {
+      "1": "Design services, architecture, software and interactive content",
+      "2": "Fashion",
+      "3": "Furniture",
+      "4": "Visual arts and crafts"
+    },
+    "lightLeaves": "Embedded designers",
+    "darkLeaves": "Design industries"
+  },
+  "data": [
+    {
+      "name": "tree",
+      "url": "data/economy-tree.json",
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "value",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "method": "squarify",
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "paddingInner": 0,
+          "paddingOuter": 0,
+          "paddingTop": 0,
+          "round": false
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth == 2"
+        }
+      ]
+    },
+    {
+      "name": "heads",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth == 1"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "dark",
+      "type": "ordinal",
+      "domain": [
+        "Services / architecture / digital",
+        "Fashion",
+        "Furniture",
+        "Visual arts / crafts"
+      ],
+      "range": [
+        "#285f60",
+        "#775264",
+        "#956125",
+        "#253c39"
+      ]
+    },
+    {
+      "name": "light",
+      "type": "ordinal",
+      "domain": [
+        "Services / architecture / digital",
+        "Fashion",
+        "Furniture",
+        "Visual arts / crafts"
+      ],
+      "range": [
+        "#c2d9d5",
+        "#e5d6df",
+        "#ead8bc",
+        "#d9e0d3"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          },
+          "fill": {
+            "signal": "scale(datum.embedded ? 'light' : 'dark', datum.sector)"
+          },
+          "stroke": {
+            "value": "#f6f3eb"
+          },
+          "strokeWidth": {
+            "value": 1.5
+          },
+          "tooltip": {
+            "signal": "{'Sector': datum.sector_full, 'Component': datum.name, 'AUD million (2019 prices)': format(datum.value, ','), 'Reference period':datum.period}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(datum.x0+datum.x1)/2"
+          },
+          "y": {
+            "signal": "(datum.y0+datum.y1)/2"
+          },
+          "text": {
+            "signal": "(datum.x1-datum.x0 > 78 && datum.y1-datum.y0 > 36) ? format(datum.value/1000, '.2f')+'bn' : ''"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 15 : 18"
+          },
+          "fill": {
+            "signal": "datum.embedded ? '#253c39' : '#ffffff'"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {
+        "data": "heads"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0",
+            "offset": 4
+          },
+          "y": {
+            "field": "y0",
+            "offset": 4
+          },
+          "width": {
+            "value": 24
+          },
+          "height": {
+            "value": 24
+          },
+          "fill": {
+            "value": "#f6f3eb"
+          },
+          "stroke": {
+            "value": "#253c39"
+          },
+          "strokeWidth": {
+            "value": 0.5
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "heads"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "field": "x0",
+            "offset": 16
+          },
+          "y": {
+            "field": "y0",
+            "offset": 17
+          },
+          "text": {
+            "field": "sector_key"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 14 : 14"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#253c39"
+          }
+        }
+      }
+    }
+  ]
+}

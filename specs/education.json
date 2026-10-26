@@ -1,0 +1,229 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Heatmap compares domestic commencing higher education students in three broad fields. Default 2015 equals 100. These are design-adjacent fields, not a count of design students.",
+  "width": "container",
+  "height": 297,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "params": [
+    {
+      "name": "baseYear",
+      "value": 2015
+    }
+  ],
+  "data": {
+    "url": "data/education.json"
+  },
+  "transform": [
+    {
+      "calculate": "baseYear == 2015 ? datum.index_2015 : datum.index_2012",
+      "as": "index"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Year",
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "field",
+      "type": "nominal",
+      "axis": {
+        "title": null,
+        "labelLimit": 115,
+        "labelExpr": "datum.label == 'Architecture and Building' ? 'Arch. & building' : datum.label == 'Information Technology' ? 'IT' : datum.label"
+      }
+    },
+    "color": {
+      "field": "index",
+      "type": "quantitative",
+      "title": "Index (base year = 100)",
+      "scale": {
+        "domain": [
+          50,
+          100,
+          225
+        ],
+        "range": [
+          "#956125",
+          "#f6f3eb",
+          "#285f60"
+        ],
+        "interpolate": "rgb"
+      },
+      "legend": {
+        "values": [
+          50,
+          100,
+          150,
+          200
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "field",
+        "type": "nominal",
+        "title": "field"
+      },
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "year"
+      },
+      {
+        "field": "commencements",
+        "type": "quantitative",
+        "title": "commencements",
+        "format": ","
+      },
+      {
+        "field": "index",
+        "type": "quantitative",
+        "title": "Index",
+        "format": ".1f"
+      }
+    ]
+  },
+  "padding": {
+    "left": 40,
+    "right": 10,
+    "top": 30,
+    "bottom": 12
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 2,
+        "cornerRadius": 2
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2024"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": {
+          "expr": "width/26+6"
+        },
+        "fontWeight": "bold",
+        "fontSize": {
+          "expr": "width < 500 ? 14 : 15"
+        }
+      },
+      "encoding": {
+        "text": {
+          "field": "index",
+          "format": ".0f"
+        },
+        "color": {
+          "value": "#253c39"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == baseYear && datum.field == 'Creative Arts'"
+        },
+        {
+          "calculate": "width < 500 ? 'Base 100' : baseYear + ' = 100'",
+          "as": "baseline_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "y": {
+          "value": -16
+        },
+        "text": {
+          "field": "baseline_label"
+        },
+        "color": {
+          "value": "#253c39"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2024 && datum.field == 'Creative Arts'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": {
+          "expr": "width/26+6"
+        },
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "y": {
+          "value": -16
+        },
+        "text": {
+          "value": "2024"
+        },
+        "color": {
+          "value": "#253c39"
+        }
+      }
+    }
+  ]
+}

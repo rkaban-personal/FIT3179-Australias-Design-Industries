@@ -1,0 +1,184 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Resident and non-resident design-right applications, 2016–2025, all from the 2026 IP report vintage. Direct labels identify the2025 endpoints. Applications are not registrations, firms, or people.",
+  "width": "container",
+  "height": 432,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "data": {
+    "url": "data/ip-history.json"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "axis": {
+        "title": "Calendar year",
+        "labelAngle": -45
+      }
+    },
+    "y": {
+      "field": "applications",
+      "type": "quantitative",
+      "title": "Applications",
+      "scale": {
+        "zero": true,
+        "domain": [
+          0,
+          9000
+        ]
+      }
+    },
+    "color": {
+      "field": "residency",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "Australian residents",
+          "Non-residents"
+        ],
+        "range": [
+          "#775264",
+          "#285f60"
+        ]
+      },
+      "legend": {
+        "symbolType": "stroke",
+        "symbolSize": 625,
+        "symbolStrokeWidth": 3
+      }
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "ordinal",
+        "title": "year"
+      },
+      {
+        "field": "residency",
+        "type": "nominal",
+        "title": "residency"
+      },
+      {
+        "field": "applications",
+        "type": "quantitative",
+        "title": "applications",
+        "format": ","
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "strokeDash": {
+          "field": "residency",
+          "type": "nominal",
+          "title": null
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025"
+        },
+        {
+          "calculate": "(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ',')",
+          "as": "end_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -7,
+        "dy": {
+          "expr": "datum.residency == 'Non-residents' ? -22 : 24"
+        },
+        "fontWeight": "bold",
+        "fontSize": {
+          "expr": "width < 500 ? 14 : 16"
+        },
+        "stroke": "#f6f3eb",
+        "strokeWidth": 5
+      },
+      "encoding": {
+        "text": {
+          "field": "end_label"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025"
+        },
+        {
+          "calculate": "(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ',')",
+          "as": "end_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -7,
+        "dy": {
+          "expr": "datum.residency == 'Non-residents' ? -22 : 24"
+        },
+        "fontWeight": "bold",
+        "fontSize": {
+          "expr": "width < 500 ? 14 : 16"
+        }
+      },
+      "encoding": {
+        "text": {
+          "field": "end_label"
+        }
+      }
+    }
+  ]
+}

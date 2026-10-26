@@ -1,0 +1,1703 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Min–max box plots of published 2024–25 business exit rates in eight Australian states and territories, for three ANZSIC 2006 classes. Every jurisdiction has equal weight; points show all observations. Boxes span linearly interpolated first and third quartiles; the line is the median. Whiskers show minimum and maximum, not Tukey fences. Rates use businesses at the start of the period as their denominator. ABS detailed counts are perturbed; exits do not necessarily mean failures.",
+  "width": 1000,
+  "padding": 8,
+  "autosize": "none",
+  "background": "transparent",
+  "config": {
+    "font": "\"Source Sans 3\"",
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "fill": "#253c39"
+    },
+    "axis": {
+      "labelFont": "\"Source Sans 3\"",
+      "titleFont": "\"Source Sans 3\"",
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#cdd5cc"
+    }
+  },
+  "height": {
+    "signal": "wide ? 350 : 1044"
+  },
+  "signals": [
+    {
+      "name": "wide",
+      "update": "width >= 850"
+    },
+    {
+      "name": "panelGap",
+      "value": 28
+    },
+    {
+      "name": "panelWidth",
+      "update": "wide ? (width - 2 * panelGap) / 3 : width"
+    }
+  ],
+  "data": [
+    {
+      "name": "stateRates",
+      "url": "data/state-exit-rates.json"
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "name": "class_6921",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "wide ? 0 * (panelWidth + panelGap) : 0"
+          },
+          "y": {
+            "signal": "wide ? 0 : 0 * 348"
+          },
+          "width": {
+            "signal": "panelWidth"
+          },
+          "height": {
+            "value": 338
+          }
+        }
+      },
+      "data": [
+        {
+          "name": "observations",
+          "source": "stateRates",
+          "transform": [
+            {
+              "type": "filter",
+              "expr": "datum.anzsic_2006 == '6921'"
+            }
+          ]
+        },
+        {
+          "name": "summary",
+          "source": "observations",
+          "transform": [
+            {
+              "type": "aggregate",
+              "fields": [
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct"
+              ],
+              "ops": [
+                "min",
+                "q1",
+                "median",
+                "q3",
+                "max"
+              ],
+              "as": [
+                "minimum",
+                "q1",
+                "median",
+                "q3",
+                "maximum"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ticks",
+          "values": [
+            {
+              "rate": 0
+            },
+            {
+              "rate": 5
+            },
+            {
+              "rate": 10
+            },
+            {
+              "rate": 15
+            },
+            {
+              "rate": 20
+            },
+            {
+              "rate": 25
+            }
+          ]
+        }
+      ],
+      "scales": [
+        {
+          "name": "exitRate",
+          "type": "linear",
+          "domain": [
+            0,
+            25
+          ],
+          "range": [
+            44,
+            {
+              "signal": "panelWidth - 14"
+            }
+          ],
+          "zero": true,
+          "nice": false
+        }
+      ],
+      "marks": [
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "value": 0
+              },
+              "text": {
+                "value": [
+                  "Architectural Services",
+                  "ANZSIC 6921"
+                ]
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#285f60"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "lineHeight": {
+                "value": 22
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 99
+              },
+              "y2": {
+                "value": 266
+              },
+              "stroke": {
+                "value": "#cdd5cc"
+              },
+              "strokeWidth": {
+                "value": 0.6
+              },
+              "opacity": {
+                "value": 0.7
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 64
+              },
+              "stroke": {
+                "value": "#285f60"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#285f60"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#285f60"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "q1"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "q3"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "fill": {
+                "value": "#285f60"
+              },
+              "fillOpacity": {
+                "value": 0.2
+              },
+              "stroke": {
+                "value": "#285f60"
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "median"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "stroke": {
+                "value": "#285f60"
+              },
+              "strokeWidth": {
+                "value": 2.8
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "y": {
+                "value": 93
+              },
+              "text": {
+                "signal": "'Median ' + format(datum.median, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#285f60"
+              }
+            }
+          },
+          "from": {
+            "data": "summary"
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "field": "state_abbr"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "baseline": {
+                "value": "middle"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {
+            "data": "observations"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "exit_rate_pct"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "size": {
+                "value": 70
+              },
+              "fill": {
+                "value": "#285f60"
+              },
+              "stroke": {
+                "value": "white"
+              },
+              "strokeWidth": {
+                "value": 0.8
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              },
+              "description": {
+                "signal": "datum.state + ', ' + datum.industry + ': ' + format(datum.exit_rate_pct, '.1f') + '% exit rate in 2024–25; ' + datum.exits + ' exits and ' + datum.start_total + ' start-of-period businesses'"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('exitRate', datum.exit_rate_pct) + (datum.exit_rate_pct > 19 ? -9 : 9)"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "signal": "format(datum.exit_rate_pct, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "signal": "datum.exit_rate_pct > 19 ? 'right' : 'left'"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "rule",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "x2": {
+                "signal": "panelWidth - 14"
+              },
+              "y": {
+                "value": 282
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 282
+              },
+              "y2": {
+                "value": 286
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 294
+              },
+              "text": {
+                "field": "rate"
+              },
+              "align": {
+                "signal": "datum.rate == 25 ? 'right' : datum.rate == 0 ? 'left' : 'center'"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "(44 + panelWidth - 14) / 2"
+              },
+              "y": {
+                "value": 331
+              },
+              "text": {
+                "value": "Published exit rate (%)"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "value": "center"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "class_6924",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "wide ? 1 * (panelWidth + panelGap) : 0"
+          },
+          "y": {
+            "signal": "wide ? 0 : 1 * 348"
+          },
+          "width": {
+            "signal": "panelWidth"
+          },
+          "height": {
+            "value": 338
+          }
+        }
+      },
+      "data": [
+        {
+          "name": "observations",
+          "source": "stateRates",
+          "transform": [
+            {
+              "type": "filter",
+              "expr": "datum.anzsic_2006 == '6924'"
+            }
+          ]
+        },
+        {
+          "name": "summary",
+          "source": "observations",
+          "transform": [
+            {
+              "type": "aggregate",
+              "fields": [
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct"
+              ],
+              "ops": [
+                "min",
+                "q1",
+                "median",
+                "q3",
+                "max"
+              ],
+              "as": [
+                "minimum",
+                "q1",
+                "median",
+                "q3",
+                "maximum"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ticks",
+          "values": [
+            {
+              "rate": 0
+            },
+            {
+              "rate": 5
+            },
+            {
+              "rate": 10
+            },
+            {
+              "rate": 15
+            },
+            {
+              "rate": 20
+            },
+            {
+              "rate": 25
+            }
+          ]
+        }
+      ],
+      "scales": [
+        {
+          "name": "exitRate",
+          "type": "linear",
+          "domain": [
+            0,
+            25
+          ],
+          "range": [
+            44,
+            {
+              "signal": "panelWidth - 14"
+            }
+          ],
+          "zero": true,
+          "nice": false
+        }
+      ],
+      "marks": [
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "value": 0
+              },
+              "text": {
+                "value": [
+                  "Other Specialised Design",
+                  "Services · ANZSIC 6924"
+                ]
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#956125"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "lineHeight": {
+                "value": 22
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 99
+              },
+              "y2": {
+                "value": 266
+              },
+              "stroke": {
+                "value": "#cdd5cc"
+              },
+              "strokeWidth": {
+                "value": 0.6
+              },
+              "opacity": {
+                "value": 0.7
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 64
+              },
+              "stroke": {
+                "value": "#956125"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#956125"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#956125"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "q1"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "q3"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "fill": {
+                "value": "#956125"
+              },
+              "fillOpacity": {
+                "value": 0.2
+              },
+              "stroke": {
+                "value": "#956125"
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "median"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "stroke": {
+                "value": "#956125"
+              },
+              "strokeWidth": {
+                "value": 2.8
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "y": {
+                "value": 93
+              },
+              "text": {
+                "signal": "'Median ' + format(datum.median, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#956125"
+              }
+            }
+          },
+          "from": {
+            "data": "summary"
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "field": "state_abbr"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "baseline": {
+                "value": "middle"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {
+            "data": "observations"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "exit_rate_pct"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "size": {
+                "value": 70
+              },
+              "fill": {
+                "value": "#956125"
+              },
+              "stroke": {
+                "value": "white"
+              },
+              "strokeWidth": {
+                "value": 0.8
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              },
+              "description": {
+                "signal": "datum.state + ', ' + datum.industry + ': ' + format(datum.exit_rate_pct, '.1f') + '% exit rate in 2024–25; ' + datum.exits + ' exits and ' + datum.start_total + ' start-of-period businesses'"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('exitRate', datum.exit_rate_pct) + (datum.exit_rate_pct > 19 ? -9 : 9)"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "signal": "format(datum.exit_rate_pct, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "signal": "datum.exit_rate_pct > 19 ? 'right' : 'left'"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "rule",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "x2": {
+                "signal": "panelWidth - 14"
+              },
+              "y": {
+                "value": 282
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 282
+              },
+              "y2": {
+                "value": 286
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 294
+              },
+              "text": {
+                "field": "rate"
+              },
+              "align": {
+                "signal": "datum.rate == 25 ? 'right' : datum.rate == 0 ? 'left' : 'center'"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "(44 + panelWidth - 14) / 2"
+              },
+              "y": {
+                "value": 331
+              },
+              "text": {
+                "value": "Published exit rate (%)"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "value": "center"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "class_6940",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "wide ? 2 * (panelWidth + panelGap) : 0"
+          },
+          "y": {
+            "signal": "wide ? 0 : 2 * 348"
+          },
+          "width": {
+            "signal": "panelWidth"
+          },
+          "height": {
+            "value": 338
+          }
+        }
+      },
+      "data": [
+        {
+          "name": "observations",
+          "source": "stateRates",
+          "transform": [
+            {
+              "type": "filter",
+              "expr": "datum.anzsic_2006 == '6940'"
+            }
+          ]
+        },
+        {
+          "name": "summary",
+          "source": "observations",
+          "transform": [
+            {
+              "type": "aggregate",
+              "fields": [
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct",
+                "exit_rate_pct"
+              ],
+              "ops": [
+                "min",
+                "q1",
+                "median",
+                "q3",
+                "max"
+              ],
+              "as": [
+                "minimum",
+                "q1",
+                "median",
+                "q3",
+                "maximum"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ticks",
+          "values": [
+            {
+              "rate": 0
+            },
+            {
+              "rate": 5
+            },
+            {
+              "rate": 10
+            },
+            {
+              "rate": 15
+            },
+            {
+              "rate": 20
+            },
+            {
+              "rate": 25
+            }
+          ]
+        }
+      ],
+      "scales": [
+        {
+          "name": "exitRate",
+          "type": "linear",
+          "domain": [
+            0,
+            25
+          ],
+          "range": [
+            44,
+            {
+              "signal": "panelWidth - 14"
+            }
+          ],
+          "zero": true,
+          "nice": false
+        }
+      ],
+      "marks": [
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "value": 0
+              },
+              "text": {
+                "value": [
+                  "Advertising Services",
+                  "ANZSIC 6940"
+                ]
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#775264"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "lineHeight": {
+                "value": 22
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 99
+              },
+              "y2": {
+                "value": 266
+              },
+              "stroke": {
+                "value": "#cdd5cc"
+              },
+              "strokeWidth": {
+                "value": 0.6
+              },
+              "opacity": {
+                "value": 0.7
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 64
+              },
+              "stroke": {
+                "value": "#775264"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "minimum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#775264"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "maximum"
+              },
+              "y": {
+                "value": 55
+              },
+              "y2": {
+                "value": 73
+              },
+              "stroke": {
+                "value": "#775264"
+              },
+              "strokeWidth": {
+                "value": 1.6
+              }
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "q1"
+              },
+              "x2": {
+                "scale": "exitRate",
+                "field": "q3"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "fill": {
+                "value": "#775264"
+              },
+              "fillOpacity": {
+                "value": 0.2
+              },
+              "stroke": {
+                "value": "#775264"
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "summary"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "median"
+              },
+              "y": {
+                "value": 51
+              },
+              "y2": {
+                "value": 77
+              },
+              "stroke": {
+                "value": "#775264"
+              },
+              "strokeWidth": {
+                "value": 2.8
+              },
+              "tooltip": {
+                "signal": "{'Summary': 'Eight jurisdictions, equally weighted', 'Minimum (%)': format(datum.minimum, '.1f'), 'Q1 (%)': format(datum.q1, '.3~f'), 'Median (%)': format(datum.median, '.3~f'), 'Q3 (%)': format(datum.q3, '.3~f'), 'Maximum (%)': format(datum.maximum, '.1f'), 'Method': 'Linear interpolated quartiles; whiskers show min and max'}"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "y": {
+                "value": 93
+              },
+              "text": {
+                "signal": "'Median ' + format(datum.median, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#775264"
+              }
+            }
+          },
+          "from": {
+            "data": "summary"
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "field": "state_abbr"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "baseline": {
+                "value": "middle"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {
+            "data": "observations"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "exit_rate_pct"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "size": {
+                "value": 70
+              },
+              "fill": {
+                "value": "#775264"
+              },
+              "stroke": {
+                "value": "white"
+              },
+              "strokeWidth": {
+                "value": 0.8
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              },
+              "description": {
+                "signal": "datum.state + ', ' + datum.industry + ': ' + format(datum.exit_rate_pct, '.1f') + '% exit rate in 2024–25; ' + datum.exits + ' exits and ' + datum.start_total + ' start-of-period businesses'"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('exitRate', datum.exit_rate_pct) + (datum.exit_rate_pct > 19 ? -9 : 9)"
+              },
+              "y": {
+                "signal": "117 + datum.state_order * 20"
+              },
+              "text": {
+                "signal": "format(datum.exit_rate_pct, '.1f') + '%'"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "signal": "datum.exit_rate_pct > 19 ? 'right' : 'left'"
+              },
+              "baseline": {
+                "value": "middle"
+              },
+              "tooltip": {
+                "signal": "{'Industry': datum.industry, 'State or territory': datum.state, 'Period': datum.period, 'Published exit rate': format(datum.exit_rate_pct, '.1f') + '%', 'Businesses at start (June 2024)': format(datum.start_total, ',d'), 'Business exits during 2024–25': format(datum.exits, ',d'), 'Denominator': 'Start-of-period businesses', 'Caution': 'Detailed counts are perturbed; exits do not necessarily mean failures'}"
+              }
+            }
+          },
+          "from": {
+            "data": "observations"
+          }
+        },
+        {
+          "type": "rule",
+          "encode": {
+            "update": {
+              "x": {
+                "value": 44
+              },
+              "x2": {
+                "signal": "panelWidth - 14"
+              },
+              "y": {
+                "value": 282
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "rule",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 282
+              },
+              "y2": {
+                "value": 286
+              },
+              "stroke": {
+                "value": "#80918b"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {
+            "data": "ticks"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "exitRate",
+                "field": "rate"
+              },
+              "y": {
+                "value": 294
+              },
+              "text": {
+                "field": "rate"
+              },
+              "align": {
+                "signal": "datum.rate == 25 ? 'right' : datum.rate == 0 ? 'left' : 'center'"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 16
+              },
+              "fill": {
+                "value": "#253c39"
+              }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "(44 + panelWidth - 14) / 2"
+              },
+              "y": {
+                "value": 331
+              },
+              "text": {
+                "value": "Published exit rate (%)"
+              },
+              "font": {
+                "value": "\"Source Sans 3\""
+              },
+              "fontSize": {
+                "value": 18
+              },
+              "fill": {
+                "value": "#253c39"
+              },
+              "align": {
+                "value": "center"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

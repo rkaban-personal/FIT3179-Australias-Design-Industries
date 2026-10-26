@@ -1,0 +1,183 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Proportional symbol map: circle area represents ANZSIC 6924 business counts in June 2025. Official state reference points are anchors, not business addresses.",
+  "width": "container",
+  "height": 500,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-states.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e0e5d9",
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/states.json"
+      },
+      "mark": {
+        "type": "circle",
+        "color": "#285f60",
+        "fillOpacity": 0.65,
+        "stroke": "#253c39",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "businesses",
+          "type": "quantitative",
+          "title": "Businesses",
+          "scale": {
+            "domain": [
+              0,
+              7000
+            ],
+            "range": [
+              0,
+              3200
+            ]
+          },
+          "legend": {
+            "values": [
+              1000,
+              3000,
+              6000
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "state"
+          },
+          {
+            "field": "businesses",
+            "type": "quantitative",
+            "title": "businesses",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/states.json"
+      },
+      "mark": {
+        "type": "text",
+        "dy": -5,
+        "fontSize": 15,
+        "fontWeight": "bold",
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "abbr"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/states.json"
+      },
+      "mark": {
+        "type": "text",
+        "dy": -5,
+        "fontSize": 15,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "abbr"
+        }
+      }
+    }
+  ]
+}

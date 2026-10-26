@@ -1,0 +1,232 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Waterfall reconciles June 2024 stock plus entries minus exits to June 2025 stock for ANZSIC 6924. Survivor net movement is zero in the national table.",
+  "width": "container",
+  "height": 432,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "data": {
+    "url": "data/business-change.json"
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "stage": "June 2024",
+            "next": "Entries",
+            "level": 17317
+          },
+          {
+            "stage": "Entries",
+            "next": "Exits",
+            "level": 19851
+          },
+          {
+            "stage": "Exits",
+            "next": "June 2025",
+            "level": 17498
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#9caebc",
+        "strokeDash": [
+          3,
+          2
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "stage",
+          "type": "ordinal",
+          "sort": [
+            "June 2024",
+            "Entries",
+            "Exits",
+            "June 2025"
+          ]
+        },
+        "x2": {
+          "field": "next"
+        },
+        "y": {
+          "field": "level",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "width": {
+          "band": 0.75
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "stage",
+          "type": "ordinal",
+          "sort": [
+            "June 2024",
+            "Entries",
+            "Exits",
+            "June 2025"
+          ],
+          "axis": {
+            "title": null,
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "bottom",
+          "type": "quantitative",
+          "title": "Businesses",
+          "scale": {
+            "domain": [
+              0,
+              22000
+            ]
+          }
+        },
+        "y2": {
+          "field": "top"
+        },
+        "color": {
+          "field": "kind",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Stock",
+              "Entry",
+              "Exit"
+            ],
+            "range": [
+              "#285f60",
+              "#775264",
+              "#956125"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "stage",
+            "type": "nominal",
+            "title": "stage"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "value",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dy": -10,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "stage",
+          "type": "ordinal",
+          "sort": [
+            "June 2024",
+            "Entries",
+            "Exits",
+            "June 2025"
+          ]
+        },
+        "y": {
+          "field": "top",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "stage": "June 2025",
+            "level": 11500,
+            "note": "+181\nnet"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "color": "white",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "lineBreak": "\n",
+        "lineHeight": 17
+      },
+      "encoding": {
+        "x": {
+          "field": "stage",
+          "type": "ordinal",
+          "sort": [
+            "June 2024",
+            "Entries",
+            "Exits",
+            "June 2025"
+          ]
+        },
+        "y": {
+          "field": "level",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "note"
+        }
+      }
+    }
+  ]
+}

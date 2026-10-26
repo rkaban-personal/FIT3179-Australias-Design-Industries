@@ -1,0 +1,206 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Choropleth: ANZSIC 6924 businesses per 1,000 all-industry businesses in each state, June 2025. Equal-area conic projection.",
+  "width": "container",
+  "height": 500,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-states.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.state_code_2021",
+          "from": {
+            "data": {
+              "url": "data/states.json"
+            },
+            "key": "code",
+            "fields": [
+              "state",
+              "businesses",
+              "all_businesses",
+              "per_1000"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "color": {
+          "field": "per_1000",
+          "type": "quantitative",
+          "title": "Per 1,000 businesses",
+          "scale": {
+            "range": [
+              "#edf0e4",
+              "#285f60"
+            ],
+            "domain": [
+              0,
+              9
+            ]
+          },
+          "legend": {
+            "gradientLength": 200
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "state"
+          },
+          {
+            "field": "businesses",
+            "type": "quantitative",
+            "title": "Specialised design businesses",
+            "format": ","
+          },
+          {
+            "field": "all_businesses",
+            "type": "quantitative",
+            "title": "All businesses",
+            "format": ","
+          },
+          {
+            "field": "per_1000",
+            "type": "quantitative",
+            "title": "Design per 1,000",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/states.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.abbr == 'NSW' ? ['NSW',format(datum.per_1000,'.2f')+' / 1,000'] : [datum.abbr]",
+          "as": "map_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "lineHeight": 17,
+        "dy": {
+          "expr": "datum.abbr == 'NSW' ? -17 : datum.abbr == 'ACT' ? 13 : datum.abbr == 'VIC' ? 12 : 0"
+        },
+        "stroke": "#f6f3eb",
+        "strokeWidth": 4
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "map_label"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/states.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.abbr == 'NSW' ? ['NSW',format(datum.per_1000,'.2f')+' / 1,000'] : [datum.abbr]",
+          "as": "map_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "lineHeight": 17,
+        "dy": {
+          "expr": "datum.abbr == 'NSW' ? -17 : datum.abbr == 'ACT' ? 13 : datum.abbr == 'VIC' ? 12 : 0"
+        },
+        "color": "#253c39"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "map_label"
+        }
+      }
+    }
+  ]
+}

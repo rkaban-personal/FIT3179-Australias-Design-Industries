@@ -1,0 +1,284 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Selected official ANZSCO2022 to OSCA2024 conceptual correspondences. Aligned classification columns and equal-width links. Dashed means part-only on at least one side, not a smaller number of workers.",
+  "width": 1000,
+  "height": 640,
+  "padding": 0,
+  "autosize": "none",
+  "data": [
+    {
+      "name": "links",
+      "url": "data/classification-links.json"
+    },
+    {
+      "name": "nodes",
+      "url": "data/classification-nodes.json"
+    },
+    {
+      "name": "headers",
+      "values": [
+        {
+          "side": "old",
+          "lines": [
+            "ANZSCO",
+            "2022"
+          ]
+        },
+        {
+          "side": "new",
+          "lines": [
+            "OSCA",
+            "2024 v1.0"
+          ]
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "from": {
+        "data": "headers"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width*(datum.side == 'old' ? 0.36 : 0.64)"
+          },
+          "y": {
+            "value": 8
+          },
+          "align": {
+            "signal": "datum.side == 'old' ? 'right' : 'left'"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "field": "lines"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 15 : 19"
+          },
+          "lineHeight": {
+            "value": 23
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#253c39"
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {
+        "data": "links"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width*0.40"
+          },
+          "x2": {
+            "signal": "width*0.60"
+          },
+          "y": {
+            "signal": "70+datum.sy*(height-175)/420"
+          },
+          "y2": {
+            "signal": "70+datum.ty*(height-175)/420"
+          },
+          "stroke": {
+            "value": "#285f60"
+          },
+          "strokeWidth": {
+            "value": 1.8
+          },
+          "strokeDash": {
+            "signal": "datum.partial ? [5,4] : [1,0]"
+          },
+          "opacity": {
+            "value": 0.8
+          },
+          "tooltip": {
+            "signal": "{'From': datum.source+' '+datum.source_code, 'To': datum.target+' '+datum.target_code, 'Old code part only':datum.source_part_only, 'New code part only':datum.target_part_only, 'Weight':'None — conceptual link'}"
+          }
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width*(datum.side == 'old' ? 0.40 : 0.60)"
+          },
+          "y": {
+            "signal": "70+datum.y*(height-175)/420"
+          },
+          "size": {
+            "value": 55
+          },
+          "fill": {
+            "value": "#285f60"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width*(datum.side == 'old' ? 0.36 : 0.64)"
+          },
+          "y": {
+            "signal": "70+datum.y*(height-175)/420-datum.lines.length*(width < 500 ? 16 : 21)/2"
+          },
+          "align": {
+            "signal": "datum.side == 'old' ? 'right' : 'left'"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "field": "lines"
+          },
+          "lineHeight": {
+            "signal": "width < 500 ? 16 : 21"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 14 : 18"
+          },
+          "fill": {
+            "value": "#253c39"
+          },
+          "tooltip": {
+            "signal": "{'Classification':datum.side == 'old' ? 'ANZSCO2022' : 'OSCA2024 v1.0','Occupation':replace(datum.label,'\\n',' '),'Code':datum.code}"
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 8
+          },
+          "x2": {
+            "value": 36
+          },
+          "y": {
+            "signal": "height-48"
+          },
+          "stroke": {
+            "value": "#285f60"
+          },
+          "strokeWidth": {
+            "value": 1.8
+          },
+          "strokeDash": {
+            "value": [
+              5,
+              4
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 44
+          },
+          "y": {
+            "signal": "height-48"
+          },
+          "text": {
+            "value": "Part-only: either side"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 14 : 14"
+          },
+          "fill": {
+            "value": "#253c39"
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 8
+          },
+          "x2": {
+            "value": 36
+          },
+          "y": {
+            "signal": "height-23"
+          },
+          "stroke": {
+            "value": "#285f60"
+          },
+          "strokeWidth": {
+            "value": 1.8
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 44
+          },
+          "y": {
+            "signal": "height-23"
+          },
+          "text": {
+            "value": "Full on both sides"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "\"Source Sans 3\""
+          },
+          "fontSize": {
+            "signal": "width < 500 ? 14 : 14"
+          },
+          "fill": {
+            "value": "#253c39"
+          }
+        }
+      }
+    }
+  ]
+}

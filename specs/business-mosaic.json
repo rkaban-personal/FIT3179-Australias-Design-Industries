@@ -1,0 +1,203 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Marimekko: column width is the number of businesses; coloured height is each employment-size share. Three separate ANZSIC classes, not a definition of all design.",
+  "width": "container",
+  "height": 526,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "data": {
+    "url": "data/business-mosaic.json"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          },
+          "axis": {
+            "title": null,
+            "values": [
+              0.150383141762,
+              0.497949064683,
+              0.847565922921
+            ],
+            "ticks": false,
+            "domain": false,
+            "labelPadding": 10,
+            "labelFontSize": 15,
+            "labelLineHeight": 19,
+            "labelExpr": "datum.value < 0.3 ? ['Architecture','13,345'] : datum.value < 0.7 ? ['Specialised','design','17,498'] : ['Advertising','13,527']"
+          }
+        },
+        "x2": {
+          "field": "x1"
+        },
+        "y": {
+          "field": "y0",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              1
+            ]
+          },
+          "axis": {
+            "format": ".0%",
+            "title": "Share within each industry"
+          }
+        },
+        "y2": {
+          "field": "y1"
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "title": "Employment size",
+          "sort": [
+            "Non-employing",
+            "1–4 employees",
+            "5–19 employees",
+            "20–199 employees",
+            "200+ employees"
+          ],
+          "scale": {
+            "domain": [
+              "Non-employing",
+              "1–4 employees",
+              "5–19 employees",
+              "20–199 employees",
+              "200+ employees"
+            ],
+            "range": [
+              "#285f60",
+              "#775264",
+              "#9daf8e",
+              "#c7aa74",
+              "#956125"
+            ]
+          },
+          "legend": {
+            "columns": 2
+          }
+        },
+        "tooltip": [
+          {
+            "field": "industry",
+            "type": "nominal",
+            "title": "industry"
+          },
+          {
+            "field": "code",
+            "type": "nominal",
+            "title": "ANZSIC"
+          },
+          {
+            "field": "category",
+            "type": "nominal",
+            "title": "category"
+          },
+          {
+            "field": "businesses",
+            "type": "quantitative",
+            "title": "businesses",
+            "format": ","
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Within-industry share",
+            "format": ".2%"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.code == '6924' && datum.category == 'Non-employing'"
+        },
+        {
+          "calculate": "(datum.x0+datum.x1)/2",
+          "as": "annotation_x"
+        },
+        {
+          "calculate": "(datum.y0+datum.y1)/2",
+          "as": "annotation_y"
+        },
+        {
+          "calculate": "format(datum.share, '.1%')",
+          "as": "annotation"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "color": "white",
+        "fontWeight": "bold",
+        "fontSize": 18
+      },
+      "encoding": {
+        "x": {
+          "field": "annotation_x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "annotation_y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation"
+        }
+      }
+    }
+  ]
+}

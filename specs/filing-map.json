@@ -1,0 +1,315 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Flow map of the five largest overseas origins for Australian design-right applications in2025. Numbered callouts match the adjacent origin key. Line width represents applications. Geodesic lines are schematic filing relationships, not observed routes;2,013 other overseas applications are not mapped.",
+  "width": "container",
+  "height": 567,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "params": [
+    {
+      "name": "chosenOrigin",
+      "value": "All five"
+    }
+  ],
+  "projection": {
+    "type": "equalEarth",
+    "rotate": [
+      -140,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/world.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e0e5d9",
+        "stroke": "#f6f3eb",
+        "strokeWidth": 0.4
+      }
+    },
+    {
+      "data": {
+        "url": "data/filing-lines.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#285f60"
+      },
+      "encoding": {
+        "strokeWidth": {
+          "field": "properties.applications",
+          "type": "quantitative",
+          "title": "Applications",
+          "scale": {
+            "domain": [
+              0,
+              2600
+            ],
+            "range": [
+              0,
+              12
+            ]
+          },
+          "legend": {
+            "values": [
+              250,
+              1000,
+              2500
+            ],
+            "symbolType": "stroke",
+            "symbolStrokeColor": "#285f60",
+            "symbolSize": 900
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "chosenOrigin == 'All five' || datum.properties.origin == chosenOrigin",
+            "value": 0.8
+          },
+          "value": 0.08
+        },
+        "tooltip": [
+          {
+            "field": "properties.origin",
+            "type": "nominal",
+            "title": "Origin"
+          },
+          {
+            "field": "properties.applications",
+            "type": "quantitative",
+            "title": "Applications",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/filing-flows.json"
+      },
+      "mark": {
+        "type": "circle",
+        "color": "#253c39",
+        "size": 40
+      },
+      "encoding": {
+        "longitude": {
+          "field": "origin_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "origin_latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "map_key",
+            "type": "nominal",
+            "title": "Map key"
+          },
+          {
+            "field": "origin",
+            "type": "nominal",
+            "title": "Origin"
+          },
+          {
+            "field": "applications",
+            "type": "quantitative",
+            "title": "Applications",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/filing-flows.json"
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#253c39",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "origin_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "origin_latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "label_longitude"
+        },
+        "latitude2": {
+          "field": "label_latitude"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/filing-flows.json"
+      },
+      "mark": {
+        "type": "circle",
+        "size": 400,
+        "fill": "#f6f3eb",
+        "stroke": "#253c39",
+        "strokeWidth": 0.8,
+        "opacity": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "map_key",
+            "type": "nominal",
+            "title": "Map key"
+          },
+          {
+            "field": "origin",
+            "type": "nominal",
+            "title": "Origin"
+          },
+          {
+            "field": "applications",
+            "type": "quantitative",
+            "title": "Applications",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/filing-flows.json"
+      },
+      "mark": {
+        "type": "text",
+        "fontWeight": "bold",
+        "fontSize": 14,
+        "color": "#253c39"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "map_key"
+        },
+        "tooltip": [
+          {
+            "field": "map_key",
+            "type": "nominal",
+            "title": "Map key"
+          },
+          {
+            "field": "origin",
+            "type": "nominal",
+            "title": "Origin"
+          },
+          {
+            "field": "applications",
+            "type": "quantitative",
+            "title": "Applications",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 134.04972,
+            "lat": -24.129522,
+            "label": "Australia"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "dy": 16,
+        "fontWeight": "bold",
+        "fontSize": 16,
+        "color": "#253c39"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ]
+}

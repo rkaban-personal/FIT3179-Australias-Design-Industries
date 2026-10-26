@@ -1,0 +1,122 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Historical grouped bars compare seven ANZSCO occupations in the 2006 and 2011 Census. This is not connected to the OSCA snapshot.",
+  "width": "container",
+  "height": 486,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "font": "\"Source Sans 3\"",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 16,
+      "titleFontSize": 18,
+      "titleFontWeight": "normal",
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "gridColor": "#dedfd4",
+      "domainColor": "#9cae9f",
+      "tickColor": "#9cae9f",
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 16,
+      "titleFontSize": 17,
+      "labelColor": "#253c39",
+      "titleColor": "#253c39",
+      "orient": "bottom",
+      "titleLimit": 360,
+      "labelLimit": 260,
+      "titlePadding": 12,
+      "rowPadding": 14,
+      "columnPadding": 24,
+      "labelOffset": 8
+    },
+    "text": {
+      "font": "\"Source Sans 3\"",
+      "fontSize": 16,
+      "color": "#253c39"
+    }
+  },
+  "data": {
+    "url": "data/history.json"
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 2,
+    "stroke": "#285f60",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "y": {
+      "field": "occupation",
+      "type": "nominal",
+      "title": null,
+      "sort": {
+        "field": "people",
+        "order": "descending"
+      },
+      "axis": {
+        "labelLimit": 120,
+        "labelExpr": "replace(datum.label, ' Designer', '')"
+      }
+    },
+    "yOffset": {
+      "field": "year"
+    },
+    "x": {
+      "field": "people",
+      "type": "quantitative",
+      "title": "Employed people",
+      "axis": {
+        "format": "~s",
+        "tickCount": 6
+      }
+    },
+    "color": {
+      "field": "year",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "2006",
+          "2011"
+        ],
+        "range": [
+          "#a8c6bd",
+          "#285f60"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "occupation",
+        "type": "nominal",
+        "title": "occupation"
+      },
+      {
+        "field": "year",
+        "type": "nominal",
+        "title": "year"
+      },
+      {
+        "field": "people",
+        "type": "quantitative",
+        "title": "people",
+        "format": ","
+      }
+    ]
+  },
+  "padding": {
+    "left": 40,
+    "right": 10,
+    "top": 12,
+    "bottom": 12
+  }
+}
