@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Proportional symbol map: circle area represents ANZSIC 6924 business counts in June 2025. Official state reference points are anchors, not business addresses.",
+  "description": "Proportional symbol map: circle area represents ANZSIC 6924 business counts in June 2025. One responsive zero-based linear area scale drives all circles and their legend. Official state reference points are anchors, not business addresses.",
   "width": "container",
   "height": 500,
   "autosize": {
@@ -97,14 +97,18 @@
           "type": "quantitative",
           "title": "Businesses",
           "scale": {
+            "type": "linear",
             "domain": [
               0,
               7000
             ],
             "range": [
               0,
-              3200
-            ]
+              {
+                "expr": "min(1800, 0.0075 * width * width)"
+              }
+            ],
+            "zero": true
           },
           "legend": {
             "values": [
@@ -135,11 +139,19 @@
       },
       "mark": {
         "type": "text",
-        "dy": -5,
+        "dy": {
+          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
+        },
         "fontSize": 15,
         "fontWeight": "bold",
         "stroke": "white",
-        "strokeWidth": 2
+        "strokeWidth": 2,
+        "dx": {
+          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 8 : 0"
+        },
+        "align": {
+          "expr": "datum.abbr == 'ACT' ? 'left' : datum.abbr == 'VIC' ? 'right' : 'center'"
+        }
       },
       "encoding": {
         "longitude": {
@@ -161,9 +173,17 @@
       },
       "mark": {
         "type": "text",
-        "dy": -5,
+        "dy": {
+          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
+        },
         "fontSize": 15,
-        "fontWeight": "bold"
+        "fontWeight": "bold",
+        "dx": {
+          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 8 : 0"
+        },
+        "align": {
+          "expr": "datum.abbr == 'ACT' ? 'left' : datum.abbr == 'VIC' ? 'right' : 'center'"
+        }
       },
       "encoding": {
         "longitude": {
