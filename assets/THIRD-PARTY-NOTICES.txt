@@ -1,0 +1,9 @@
+Vega 6.4.0, Vega-Lite 6.5.0, Vega-Embed 7.3.0: BSD 3-Clause, University of Washington Interactive Data Lab. See VEGA-LICENSE, VEGA-LITE-LICENSE and VEGA-EMBED-LICENSE. Sources: https://github.com/vega/vega, https://github.com/vega/vega-lite, https://github.com/vega/vega-embed
+Space Grotesk and Source Sans 3: SIL Open Font License 1.1, from Google Fonts. Original upstream projects: https://github.com/floriankarsten/space-grotesk and https://github.com/adobe-fonts/source-sans
+ABS ASGS Edition 3 (2021): State/Territory generalised boundaries and reference points, CC BY 4.0. Simplified and transformed to longitude/latitude; ring order adjusted for Vega. https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/STE/MapServer
+Natural Earth: public domain. 110m admin-0 boundaries and cartographic label positions; Hong Kong label from 10m label points. https://www.naturalearthdata.com/about/terms-of-use/
+Statistical data: Australian Bureau of Statistics, Jobs and Skills Australia, Australian Government Department of Education, IP Australia. Specific sources and reference periods appear beside every figure and in audit-summary.html. Adapted into chart-ready data, without removing published precision limits.
+
+Alegreya variable font: Google Fonts, SIL Open Font License 1.1. See Alegreya-OFL.txt. Downloaded 26 October 2026 from https://github.com/google/fonts/tree/main/ofl/alegreya
+
+Original editorial illustration everyday-design.webp: generated with OpenAI image generation on 26 October 2026 for this project. Generic illustrative room, not data evidence. Original PNG retained locally; WebP is a compressed export with unchanged composition.
