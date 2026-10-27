@@ -6,8 +6,8 @@
 <meta name="description" content="An illustrated field guide to the people, studios and ideas behind Australia’s design industries. Thirteen data visualisations for Malaysian readers.">
 <meta name="author" content="Reynard Andyti Putra Kaban">
 <title>Behind everyday design: A field guide to Australia’s design industries</title>
-<link rel="stylesheet" href="styles.css">
-<script src="assets/vega-6.4.0.min.js" defer></script><script src="assets/vega-lite-6.5.0.min.js" defer></script><script src="assets/vega-embed-7.3.0.min.js" defer></script><script src="app.js" defer></script>
+<link rel="stylesheet" href="styles.css?v=20261027-layout-final">
+<script src="assets/vega-6.4.0.min.js" defer></script><script src="assets/vega-lite-6.5.0.min.js" defer></script><script src="assets/vega-embed-7.3.0.min.js" defer></script><script src="app.js?v=20261027-layout-final" defer></script>
 </head>
 <body>
 <a class="skip" href="#story">Skip to the story</a>
@@ -50,11 +50,10 @@
 <h2>Start with the person behind it.</h2>
 <p>A room, a garment and a screen ask different things of a designer. The occupation lens helps us see those differences. First, a historical glimpse; then a separate 2021 snapshot of working patterns.</p>
 </div></div>
-<div class="two">
+<div class="two chart-pair">
 <article class="chart-card"><h3>A glimpse of an earlier expansion</h3>
 <p class="figure-meta">Historical comparison · 2006 &amp; 2011</p>
 <p>All seven selected occupations grew between these two censuses. Web designers rose from <strong>3,486 to 5,015</strong>, while graphic designers remained the largest group shown.</p>
-<p class="how">This historical window shows how the selected roles changed within one classification. It is not evidence of today’s growth.</p>
 <figure id="figure-history" data-chart="history"><div class="chart" id="chart-history"></div>
 <figcaption>Employed people aged 15+; main job; Australian and New Zealand Standard Classification of Occupations (ANZSCO). <a href="https://www.abs.gov.au/AUSSTATS/abs@.nsf/Lookup/6273.0Explanatory%20Notes12011?OpenDocument">ABS, Employment in Culture 2011</a>, Table 1. Confidentiality adjustment applies.</figcaption></figure></article>
 <article class="chart-card"><h3>Working patterns differ by role</h3>
@@ -63,7 +62,10 @@
 <figure id="figure-workforce" data-chart="workforce"><div class="chart" id="chart-workforce"></div>
 <figcaption><strong>2021 Census, experimentally recoded to the Occupation Standard Classification for Australia (OSCA) 2024.</strong> Circle area = rounded employment. <a href="https://www.jobsandskills.gov.au/sites/default/files/2026-07/osca_occupation_data_-_2021_census.xlsx">Jobs and Skills Australia, Table 1</a>. Eight selected roles, not the whole sector.</figcaption></figure></article>
 </div>
-<aside class="note"><strong>Read the two charts separately.</strong> The historical ANZSCO counts are not a continuous series with the newer OSCA estimates. Female is the source’s Census sex category, not a complete measure of gender identity. Part-time shares exclude people away from work in the reference week; COVID restrictions also affected the 2021 snapshot. The scatterplot shows association, not a cause.</aside><article class="chart-card wide"><h3>The job title does not tell you the workplace</h3>
+<aside class="note note-pair">
+<p><strong>Read the two charts separately.</strong> The historical ANZSCO counts are not a continuous series with the newer OSCA estimates. The earlier comparison shows change within one classification, not evidence of today’s growth.</p>
+<p><strong>Keep the workforce definitions in view.</strong> Female is the source’s Census sex category, not a complete measure of gender identity. Part-time shares exclude people away from work in the reference week; COVID restrictions also affected the 2021 snapshot. The scatterplot shows association, not a cause.</p>
+</aside><article class="chart-card wide"><h3>The job title does not tell you the workplace</h3>
 <p class="figure-meta">Industry profiles · 2021 Census</p>
 <p>Designers work beyond specialist studios. In the published profiles, <strong>22.8% of industrial designers worked in manufacturing</strong>, while <strong>22.2% of multimedia designers worked in education and training</strong>.</p>
 <p class="how">Read each line from top to bottom. Every horizontal axis uses the same 0–100% scale. A line describes one occupation across five selected employer industries; it does not trace people moving between them.</p>
@@ -76,7 +78,7 @@
 <h2>Now step into the studio.</h2>
 <p>A designer’s occupation tells us about their work. A business’s industry tells us about its main activity. At June 2025, Australia had <strong>17,498 businesses</strong> in “Other Specialised Design Services” (ANZSIC 6924): a class covering graphic, fashion and interior design services, among others. Architecture, engineering design and computer-system design sit elsewhere. Industrial design services sit within the broader engineering-services class 6923, so the chair motif should not be read as a boundary for class 6924.</p>
 </div></div>
-<div class="two">
+<div class="two chart-pair">
 <article class="chart-card"><h3>New South Wales has the highest concentration</h3>
 <p class="figure-meta">Rate choropleth · June 2025</p>
 <p>It has <strong>7.38 specialised design businesses per 1,000 businesses</strong> overall. Normalising by all businesses makes jurisdictions of different sizes more comparable.</p>
@@ -97,8 +99,11 @@
 </div>
 <figcaption>ABS CABEE, data cube 2, Table 1. State reference points are geographic anchors, not business addresses. Six records in Other Territories / Currently Unknown are included nationally but not mapped.</figcaption></figure></article>
 </div>
-<aside class="note">A business is assigned to its main state, not to every place it operates. Detailed ABS cells are perturbed for confidentiality. Both maps use <a href="https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/STE/MapServer">ABS ASGS 2021 boundaries</a>, simplified for display with small islands omitted. NSW = New South Wales; VIC = Victoria; QLD = Queensland; SA = South Australia; WA = Western Australia; TAS = Tasmania; NT = Northern Territory; ACT = Australian Capital Territory.</aside>
-<div class="two">
+<aside class="note note-pair">
+<p><strong>What the maps locate.</strong> A business is assigned to its main state, not to every place it operates. Detailed ABS cells are perturbed for confidentiality. Both maps use <a href="https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/STE/MapServer">ABS ASGS 2021 boundaries</a>, simplified for display with small islands omitted.</p>
+<p><strong>A key to the abbreviations.</strong> NSW = New South Wales; VIC = Victoria; QLD = Queensland; SA = South Australia; WA = Western Australia; TAS = Tasmania; NT = Northern Territory; ACT = Australian Capital Territory.</p>
+</aside>
+<div class="two chart-pair">
 <article class="chart-card"><h3>Seven in ten specialised design businesses are non-employing</h3>
 <p class="figure-meta">Business-size mosaic · June 2025</p>
 <p>The share is <strong>69.3%</strong>, compared with 52.4% in architecture and 59.9% in advertising. These are three separate business classes, chosen for comparison.</p>
@@ -112,6 +117,7 @@
 <article class="chart-card"><h3>A small net gain hides much larger movement</h3>
 <p class="figure-meta">Business turnover · 2024–2025</p>
 <p>Specialised design services added a net <strong>181 businesses</strong>. Behind that change were <strong>2,534 entries</strong> and <strong>2,353 exits</strong>.</p>
+<p class="how">Read from left to right: opening businesses + entries − exits = closing businesses.</p>
 <figure data-chart="business-change"><div class="chart" id="chart-business-change"></div>
 <figcaption>Waterfall: 17,317 + 2,534 − 2,353 = 17,498. ABS CABEE, data cube 2, Table 1, national ANZSIC 6924. Net movement of surviving businesses is zero in this row. Entry and exit follow ABS administrative definitions.</figcaption></figure></article>
 </div>
