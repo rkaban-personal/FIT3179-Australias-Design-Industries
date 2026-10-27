@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Resident and non-resident design-right applications, 2016–2025, all from the 2026 IP report vintage. Direct labels identify the2025 endpoints. Applications are not registrations, firms, or people.",
+  "description": "Resident and non-resident design-right applications, 2016–2025, all from the 2026 IP report vintage. Direct labels identify the 2025 endpoints and changes since 2016. Applications are not registrations, firms, or people.",
   "width": "container",
   "height": 432,
   "autosize": {
@@ -47,6 +47,28 @@
   "data": {
     "url": "data/ip-history.json"
   },
+  "transform": [
+    {
+      "calculate": "datum.year == 2016 ? datum.applications : null",
+      "as": "baseline_candidate"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "max",
+          "field": "baseline_candidate",
+          "as": "baseline_2016"
+        }
+      ],
+      "groupby": [
+        "residency"
+      ]
+    },
+    {
+      "calculate": "datum.applications - datum.baseline_2016",
+      "as": "change_since_2016"
+    }
+  ],
   "encoding": {
     "x": {
       "field": "year",
@@ -128,16 +150,20 @@
           "filter": "datum.year == 2025"
         },
         {
-          "calculate": "(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ',')",
+          "calculate": "[(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ','), format(datum.change_since_2016, '+,.0f') + ' since 2016']",
           "as": "end_label"
         }
       ],
       "mark": {
         "type": "text",
         "align": "right",
+        "baseline": "top",
         "dx": -7,
         "dy": {
-          "expr": "datum.residency == 'Non-residents' ? -22 : 24"
+          "expr": "datum.residency == 'Non-residents' ? -48 : 42"
+        },
+        "lineHeight": {
+          "expr": "width < 500 ? 18 : 20"
         },
         "fontWeight": "bold",
         "fontSize": {
@@ -158,16 +184,20 @@
           "filter": "datum.year == 2025"
         },
         {
-          "calculate": "(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ',')",
+          "calculate": "[(datum.residency == 'Non-residents' ? 'Non-residents' : 'Residents') + ': ' + format(datum.applications, ','), format(datum.change_since_2016, '+,.0f') + ' since 2016']",
           "as": "end_label"
         }
       ],
       "mark": {
         "type": "text",
         "align": "right",
+        "baseline": "top",
         "dx": -7,
         "dy": {
-          "expr": "datum.residency == 'Non-residents' ? -22 : 24"
+          "expr": "datum.residency == 'Non-residents' ? -48 : 42"
+        },
+        "lineHeight": {
+          "expr": "width < 500 ? 18 : 20"
         },
         "fontWeight": "bold",
         "fontSize": {
