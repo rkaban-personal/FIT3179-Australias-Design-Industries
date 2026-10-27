@@ -2,7 +2,7 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
-const resourceVersion = '20261027-compact-1';
+const resourceVersion = '20261027-composition-3';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
  const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
@@ -58,7 +58,7 @@ function setupReadingNotes(){
 }
 // Align paired headings and figure starts. Disclosure heights remain independent.
 function alignFigureStarts(){
- const figureGap=window.innerWidth>=901?18:24;
+ const figureGap=window.innerWidth>=901?16:24;
  document.querySelectorAll('.chart-pair').forEach(pair=>{
   const headings=[...pair.querySelectorAll(':scope > .chart-card > h3')];
   const figures=[...pair.querySelectorAll(':scope > .chart-card > figure')];
@@ -73,7 +73,7 @@ function alignFigureStarts(){
 }
 async function equivalentTable(item,figure){
  const rows=await jsonResource('data/'+item.csv+'.json');const wrapper=element('div');wrapper.className='chart-tools';
- const details=element('details');details.id='data-'+item.id;const summary=element('summary','Read the data: '+item.title);details.append(summary);
+ const details=element('details');details.id='data-'+item.id;const summary=element('summary','Read the data');summary.setAttribute('aria-label','Read the data: '+item.title);details.append(summary);
  const scroll=element('div');scroll.className='table-scroll';scroll.tabIndex=0;scroll.setAttribute('role','region');scroll.setAttribute('aria-label',item.title+' data table');
  const table=element('table');const caption=element('caption',item.title);caption.className='quiet';table.append(caption);const head=element('thead');const hrow=element('tr');
  Object.values(item.columns).forEach(label=>{const th=element('th',label);th.scope='col';hrow.append(th);});head.append(hrow);table.append(head);const body=element('tbody');
@@ -109,23 +109,26 @@ async function renderChart(item,spec){
  else{copy.width=width-(typeof copy.padding==='number'?2*copy.padding:0);if(item.id==='economy')copy.height=width<500?560:520;}
  // Preserve the smaller-screen layouts and label sizes while shortening laptop plots.
  if(window.innerWidth>=901){
-  const heights={history:420,workforce:430,concentration:430,'business-map':430,
-   'business-mosaic':450,'business-change':380,'ip-history':380,'filing-map':480,
-   classification:560,economy:460,'industry-profiles':570};
+  const heights={history:320,workforce:330,concentration:330,'business-map':330,
+   'business-mosaic':350,'business-change':320,'ip-history':360,'filing-map':380,
+   classification:560,economy:380,'industry-profiles':490};
   if(heights[item.id])copy.height=heights[item.id];
-  if(item.id==='classification'){
-   // Desktop columns fit the full two-line labels; phones keep the narrower wraps.
-   copy.data.find(data=>data.name==='nodes').values.forEach(node=>{node.lines=node.label.split('\n');});
+  if(item.id==='business-mosaic'&&width>=540){
+   Object.assign(copy.layer[0].encoding.color.legend,{columns:3,columnPadding:12,rowPadding:8,labelFontSize:15,symbolSize:70});
   }
   if(item.id==='industry-profiles')copy.signals.forEach(signal=>{
-   if(signal.name==='axisTop')signal.value=110;
-   if(signal.name==='axisStep')signal.value=94;
+   if(signal.name==='axisTop')signal.value=90;
+   if(signal.name==='axisStep')signal.value=78;
   });
+ }
+ if(item.id==='classification'&&width>=500){
+  // Use the plot width, including tablets, to choose readable two-line labels.
+  copy.data.find(data=>data.name==='nodes').values.forEach(node=>{node.lines=node.label.split('\n');});
  }
  if(copy.params)copy.params.forEach(p=>{if(p.name==='baseYear')p.value=settings.education;if(p.name==='chosenOrigin')p.value=settings.origin;});
  if(copy.signals)copy.signals.forEach(p=>{if(p.name==='chosenRole')p.value=settings.role;});
  if(views.has(item.id))views.get(item.id).finalize();
- try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.dataset.compact=String(window.innerWidth>=901);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding is explained above; the source, limitations and equivalent data table follow.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
+ try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.dataset.compact=String(window.innerWidth>=901);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding accompanies the chart; the source, limitations and equivalent data table follow.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
  catch(error){holder.dataset.rendered='error';const box=element('p','This chart could not load. Read its data table below or download the CSV.');box.className='chart-error';holder.replaceChildren(box);console.error(item.id,error);}
 }
 async function main(){
