@@ -470,7 +470,7 @@
                 "signal": "(datum.is_highlighted) ? 2.8 : 1.3"
               },
               "opacity": {
-                "signal": "(datum.is_highlighted) ? 0.95 : 0.22"
+                "value": 0.95
               }
             }
           }
@@ -508,7 +508,7 @@
             "value": 0.6
           },
           "opacity": {
-            "signal": "(datum.is_highlighted) ? 1 : 0.4"
+            "value": 1
           },
           "tooltip": {
             "signal": "{'Occupation': datum.occupation, 'Industry': datum.industry, 'Within-occupation share': format(datum.share_pct, '.1f') + '%', 'Reference year': datum.year, 'Classification': datum.classification, 'Status': datum.estimate_status}"
