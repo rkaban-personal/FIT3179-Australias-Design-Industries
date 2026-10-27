@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Flow map of the five largest overseas origins for Australian design-right applications in2025. Numbered callouts match the adjacent origin key. Line width represents applications. Geodesic lines are schematic filing relationships, not observed routes;2,013 other overseas applications are not mapped.",
+  "description": "Flow map of the five largest overseas origins for Australian design-right applications in 2025. Numbered callouts match the adjacent origin key. Line width represents applications. Geodesic lines are schematic filing relationships, not observed routes; 2,013 other overseas applications are not mapped.",
   "width": "container",
   "height": 567,
   "autosize": {
