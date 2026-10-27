@@ -2,7 +2,7 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
-const resourceVersion = '20261027-layout-final';
+const resourceVersion = '20261027-type-2';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
  const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
@@ -65,6 +65,7 @@ async function renderChart(item,spec){
    if(item.id==='education')copy.encoding.x.axis.labelExpr="toNumber(datum.label) % 2 == 0 ? datum.label : ''";
    if(item.id==='ip-history')copy.encoding.color.legend.columns=1;
    if(item.id==='business-mosaic')copy.layer[0].encoding.color.legend.columns=1;
+   if(item.id==='filing-map')copy.layer[1].encoding.strokeWidth.legend.columns=2;
    if(item.id==='business-change')copy.layer[1].encoding.x.axis.labelExpr="replace(datum.label, 'June ', '')";
    if(item.id==='workforce'){copy.layer[0].encoding.x.axis={tickCount:5};copy.layer[0].encoding.size.scale.range=[0,1200];copy.layer[0].encoding.size.legend.columns=2;}
   }
