@@ -1,9 +1,16 @@
 Vega 6.4.0, Vega-Lite 6.5.0, Vega-Embed 7.3.0: BSD 3-Clause, University of Washington Interactive Data Lab. See VEGA-LICENSE, VEGA-LITE-LICENSE and VEGA-EMBED-LICENSE. Sources: https://github.com/vega/vega, https://github.com/vega/vega-lite, https://github.com/vega/vega-embed
-Space Grotesk and Source Sans 3: SIL Open Font License 1.1, from Google Fonts. Original upstream projects: https://github.com/floriankarsten/space-grotesk and https://github.com/adobe-fonts/source-sans
+Space Grotesk and the retained Source Sans 3 Regular TTF: SIL Open Font License 1.1, from Google Fonts. Original upstream projects: https://github.com/floriankarsten/space-grotesk and https://github.com/adobe-fonts/source-sans
 ABS ASGS Edition 3 (2021): State/Territory generalised boundaries and reference points, CC BY 4.0. Simplified and transformed to longitude/latitude; ring order adjusted for Vega. https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/STE/MapServer
 Natural Earth: public domain. 110m admin-0 boundaries and cartographic label positions; Hong Kong label from 10m label points. https://www.naturalearthdata.com/about/terms-of-use/
 Statistical data: Australian Bureau of Statistics, Jobs and Skills Australia, Australian Government Department of Education, IP Australia. Specific sources and reference periods appear beside every figure and in audit-summary.html. Adapted into chart-ready data, without removing published precision limits.
 
 Alegreya variable font: Google Fonts, SIL Open Font License 1.1. See Alegreya-OFL.txt. Downloaded 26 October 2026 from https://github.com/google/fonts/tree/main/ofl/alegreya
+
+Source Sans 3 Bold (700, upright) and Italic (400): unmodified WOFF2 files from Adobe's official Source Sans 3.052R release, downloaded 27 October 2026. Pinned commit: ed1808970eb3c7301c9a523bee26473ba0bb62fa. Local filenames are SourceSans3-Bold.woff2 and SourceSans3-Italic.woff2; the font data and internal names are unchanged.
+Bold source: https://raw.githubusercontent.com/adobe-fonts/source-sans/ed1808970eb3c7301c9a523bee26473ba0bb62fa/WOFF2/TTF/SourceSans3-Bold.ttf.woff2
+Italic source: https://raw.githubusercontent.com/adobe-fonts/source-sans/ed1808970eb3c7301c9a523bee26473ba0bb62fa/WOFF2/TTF/SourceSans3-It.ttf.woff2
+Embedded copyright notice for both new faces: © 2023 Adobe (http://www.adobe.com/), with Reserved Font Name ‘Source’.
+Pinned release licence copyright: Copyright 2010-2022 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe in the United States and/or other countries.
+Both faces are licensed under the SIL Open Font License 1.1. The licence terms match the retained SourceSans3-OFL.txt; that retained file has the older 2010-2020 copyright line, supplemented by the notices above. Upstream licence: https://github.com/adobe-fonts/source-sans/blob/ed1808970eb3c7301c9a523bee26473ba0bb62fa/LICENSE.md
 
 Original editorial illustration everyday-design.webp: generated with OpenAI image generation on 26 October 2026 for this project. Generic illustrative room, not data evidence. Original PNG retained locally; WebP is a compressed export with unchanged composition.
