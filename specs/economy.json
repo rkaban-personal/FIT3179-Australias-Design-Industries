@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "description": "Historical published economic estimates in millions of constant 2019 AUD. Exact-area nested treemap: sector identifiers1\u20134 refer to the accompanying sector key; light leaves are embedded contributions. Mixed reference periods, not a current market size.",
+  "description": "Historical published economic estimates in millions of constant 2019 AUD. Exact-area nested treemap: sector identifiers 1\u20134 refer to the accompanying sector key; light leaves are embedded contributions. Mixed reference periods, not a current market size.",
   "width": 1000,
   "height": 520,
   "padding": 3,
