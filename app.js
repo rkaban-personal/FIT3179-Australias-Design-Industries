@@ -2,7 +2,7 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
-const resourceVersion = '20261027-notes-1';
+const resourceVersion = '20261027-compact-1';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
  const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
@@ -58,16 +58,17 @@ function setupReadingNotes(){
 }
 // Align paired headings and figure starts. Disclosure heights remain independent.
 function alignFigureStarts(){
+ const figureGap=window.innerWidth>=901?18:24;
  document.querySelectorAll('.chart-pair').forEach(pair=>{
   const headings=[...pair.querySelectorAll(':scope > .chart-card > h3')];
   const figures=[...pair.querySelectorAll(':scope > .chart-card > figure')];
   headings.forEach(h=>h.style.minHeight='');
-  figures.forEach(f=>f.style.marginTop='24px');
+  figures.forEach(f=>f.style.marginTop=figureGap+'px');
   if(window.innerWidth<1200||figures.length!==2)return;
   const headingHeight=Math.max(...headings.map(h=>h.getBoundingClientRect().height));
   headings.forEach(h=>h.style.minHeight=headingHeight+'px');
   const tops=figures.map(f=>f.getBoundingClientRect().top);
-  figures.forEach((f,i)=>f.style.marginTop=(24+Math.max(...tops)-tops[i])+'px');
+  figures.forEach((f,i)=>f.style.marginTop=(figureGap+Math.max(...tops)-tops[i])+'px');
  });
 }
 async function equivalentTable(item,figure){
@@ -106,10 +107,25 @@ async function renderChart(item,spec){
   }
  }
  else{copy.width=width-(typeof copy.padding==='number'?2*copy.padding:0);if(item.id==='economy')copy.height=width<500?560:520;}
+ // Preserve the smaller-screen layouts and label sizes while shortening laptop plots.
+ if(window.innerWidth>=901){
+  const heights={history:420,workforce:430,concentration:430,'business-map':430,
+   'business-mosaic':450,'business-change':380,'ip-history':380,'filing-map':480,
+   classification:560,economy:460,'industry-profiles':570};
+  if(heights[item.id])copy.height=heights[item.id];
+  if(item.id==='classification'){
+   // Desktop columns fit the full two-line labels; phones keep the narrower wraps.
+   copy.data.find(data=>data.name==='nodes').values.forEach(node=>{node.lines=node.label.split('\n');});
+  }
+  if(item.id==='industry-profiles')copy.signals.forEach(signal=>{
+   if(signal.name==='axisTop')signal.value=110;
+   if(signal.name==='axisStep')signal.value=94;
+  });
+ }
  if(copy.params)copy.params.forEach(p=>{if(p.name==='baseYear')p.value=settings.education;if(p.name==='chosenOrigin')p.value=settings.origin;});
  if(copy.signals)copy.signals.forEach(p=>{if(p.name==='chosenRole')p.value=settings.role;});
  if(views.has(item.id))views.get(item.id).finalize();
- try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding is explained above; the source, limitations and equivalent data table follow.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
+ try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.dataset.compact=String(window.innerWidth>=901);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding is explained above; the source, limitations and equivalent data table follow.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
  catch(error){holder.dataset.rendered='error';const box=element('p','This chart could not load. Read its data table below or download the CSV.');box.className='chart-error';holder.replaceChildren(box);console.error(item.id,error);}
 }
 async function main(){
@@ -133,7 +149,7 @@ async function main(){
  roleSelect.addEventListener('change',async event=>{settings.role=event.target.value;await views.get('industry-profiles').signal('chosenRole',settings.role).runAsync();document.getElementById('profile-status').textContent=settings.role==='All occupations'?'Three example profiles are emphasised; all eight remain visible.':settings.role+' highlighted. Every other profile stays visible for comparison.';});
  document.getElementById('base-year').addEventListener('change',async event=>{settings.education=Number(event.target.value);await views.get('education').signal('baseYear',settings.education).runAsync();document.getElementById('education-status').textContent='Colours compare each year with '+settings.education+'. The headline comparison stays 2015–2024.';});
  document.getElementById('origin').addEventListener('change',async event=>{settings.origin=event.target.value;await views.get('filing-map').signal('chosenOrigin',settings.origin).runAsync();document.getElementById('flow-status').textContent=settings.origin==='All five'?'All five published origins are highlighted.':settings.origin+' highlighted. All five origin counts and the omitted 2,013 filings remain unchanged.';});
- let pending;const observer=new ResizeObserver(()=>{clearTimeout(pending);pending=setTimeout(()=>{alignFigureStarts();manifest.forEach((item,i)=>{const h=document.getElementById('chart-'+item.id);if(Math.abs(h.clientWidth-Number(h.dataset.width))>2)renderChart(item,specs[i]);});},200);});manifest.forEach(item=>observer.observe(document.getElementById('chart-'+item.id)));
+ let pending;const observer=new ResizeObserver(()=>{clearTimeout(pending);pending=setTimeout(()=>{alignFigureStarts();manifest.forEach((item,i)=>{const h=document.getElementById('chart-'+item.id);if(Math.abs(h.clientWidth-Number(h.dataset.width))>2||h.dataset.compact!==String(window.innerWidth>=901))renderChart(item,specs[i]);});},200);});manifest.forEach(item=>observer.observe(document.getElementById('chart-'+item.id)));
  document.body.dataset.ready='true';
  openReadingNote();
 }
