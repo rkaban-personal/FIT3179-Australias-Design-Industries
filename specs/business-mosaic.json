@@ -76,7 +76,8 @@
             "labelPadding": 10,
             "labelFontSize": 15,
             "labelLineHeight": 19,
-            "labelExpr": "datum.value < 0.3 ? ['Architecture','13,345'] : datum.value < 0.7 ? ['Specialised','design','17,498'] : ['Advertising','13,527']"
+            "labelOverlap": false,
+            "labelExpr": "datum.value < 0.3 ? [width < 240 ? 'Arch.' : 'Architecture','13,345'] : datum.value < 0.7 ? ['Specialised','design','17,498'] : [width < 240 ? 'Advt.' : 'Advertising','13,527']"
           }
         },
         "x2": {
