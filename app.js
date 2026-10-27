@@ -2,7 +2,7 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
-const resourceVersion = '20261027-story-3';
+const resourceVersion = '20261027-notes-1';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
  const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
@@ -31,6 +31,31 @@ async function batch(items,fn){
 const settings = {education:2015, origin:'All five', role:'All occupations'};
 const number = (value,key) => typeof value === 'number' ? (key === 'year' ? String(value) : key === 'share' ? (value*100).toFixed(2)+'%' : value.toLocaleString('en-AU',{maximumFractionDigits:2})) : String(value);
 function element(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;}
+// Deep links keep the former data-notes address useful within the single page.
+function openReadingNote(){
+ let id;try{id=decodeURIComponent(window.location.hash.slice(1));}catch{return;}
+ const target=document.getElementById(id);
+ if(!target?.matches('.field-note'))return;
+ target.open=true;
+ target.querySelector('summary')?.focus({preventScroll:true});
+ target.scrollIntoView({block:'start',behavior:'auto'});
+}
+function setupReadingNotes(){
+ const button=document.getElementById('sketch-zoom');
+ const viewer=document.getElementById('sketch-viewer');
+ if(button&&viewer){
+  button.hidden=false;
+  button.addEventListener('click',()=>{
+   const enlarged=viewer.classList.toggle('is-enlarged');
+   button.setAttribute('aria-pressed',String(enlarged));
+   button.textContent=enlarged?'Fit the sketch to the page':'Enlarge the sketch';
+   document.getElementById('sketch-zoom-status').textContent=enlarged?'Scroll inside the preview to explore the drawing. With keyboard focus on the preview, use the arrow keys.':'Enlarge the sketch to read the handwriting.';
+   if(!enlarged){viewer.scrollTop=0;viewer.scrollLeft=0;}
+  });
+ }
+ window.addEventListener('hashchange',openReadingNote);
+ openReadingNote();
+}
 // Align paired headings and figure starts. Disclosure heights remain independent.
 function alignFigureStarts(){
  document.querySelectorAll('.chart-pair').forEach(pair=>{
@@ -110,5 +135,7 @@ async function main(){
  document.getElementById('origin').addEventListener('change',async event=>{settings.origin=event.target.value;await views.get('filing-map').signal('chosenOrigin',settings.origin).runAsync();document.getElementById('flow-status').textContent=settings.origin==='All five'?'All five published origins are highlighted.':settings.origin+' highlighted. All five origin counts and the omitted 2,013 filings remain unchanged.';});
  let pending;const observer=new ResizeObserver(()=>{clearTimeout(pending);pending=setTimeout(()=>{alignFigureStarts();manifest.forEach((item,i)=>{const h=document.getElementById('chart-'+item.id);if(Math.abs(h.clientWidth-Number(h.dataset.width))>2)renderChart(item,specs[i]);});},200);});manifest.forEach(item=>observer.observe(document.getElementById('chart-'+item.id)));
  document.body.dataset.ready='true';
+ openReadingNote();
 }
+setupReadingNotes();
 main().catch(error=>{console.error(error);document.body.dataset.ready='error';const p=element('p','Some charts could not initialise. Refresh the page or use the downloadable data linked in the chart manifest.');p.className='chart-error';document.querySelector('.intro').append(p);});
