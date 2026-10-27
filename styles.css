@@ -163,12 +163,27 @@ p,figcaption,dd,li{text-wrap:pretty}
  .box-copy h3,.box-copy .figure-meta{grid-column:1/-1}
  .box-copy>p:not(.figure-meta){margin-bottom:0}
 }
-@media screen and (min-width:1200px){
- .chart-split{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.75fr);gap:28px;align-items:start}
- .chart-split .chart-visual>figure{margin-top:0}
- .chart-copy .control{display:flex;flex-direction:column;align-items:stretch;gap:8px}
- .chart-copy .control select{width:100%}
- .chart-copy .control span{flex:none}
- .chart-copy .note{font-size:15px;padding:16px;margin:16px 0 0}
+/* Wide figures read from title to graphic, then into their explanation. */
+.chart-flow>.chart-heading h3{max-width:none}
+.chart-flow>.chart-heading .figure-meta{margin-top:0}
+.chart-flow>.control{margin:16px 0}
+.chart-flow>figure{margin:20px 0 0}
+.chart-explanation{margin:20px 0 16px;display:grid;gap:16px}
+.chart-explanation>p{font-size:21px;margin:0;max-width:75ch}
+.chart-explanation>.note{margin:0;max-width:none}
+.chart-flow .economy-key{max-width:none}
+@media(max-width:520px){.chart-explanation>p{font-size:20px}}
+@media screen and (min-width:901px){
+ .chart-flow .chart{max-width:1000px;margin-inline:auto}
+ .chart-flow>.chart-heading h3{margin-bottom:8px}
+ .chart-flow>.chart-heading .figure-meta{margin-bottom:0}
+ .chart-flow>.control{gap:12px 20px;padding-block:12px}
+ .chart-flow>.control span{min-width:200px}
+ .chart-flow>.control select{max-width:320px}
+ .chart-explanation{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+ .chart-explanation>p{font-size:17px}
+ .chart-explanation>p:only-child{grid-column:1/-1}
+ .chart-explanation>.note{font-size:16px;padding:16px}
+ .chart-flow .economy-key{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+ .chart-flow .economy-key>strong{grid-column:1/-1}
 }
-
