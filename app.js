@@ -2,9 +2,10 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
+const resourceVersion = '20261027-layout-final';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
- const response=await fetch(url);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
+ const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
  const value=await response.json();resources.set(url,value);return value;
 }
 function dataUrls(value,found=new Set()){
@@ -30,12 +31,16 @@ async function batch(items,fn){
 const settings = {education:2015, origin:'All five', role:'All occupations'};
 const number = (value,key) => typeof value === 'number' ? (key === 'year' ? String(value) : key === 'share' ? (value*100).toFixed(2)+'%' : value.toLocaleString('en-AU',{maximumFractionDigits:2})) : String(value);
 function element(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;}
-// Align only the start of paired figures. Disclosure heights remain independent.
+// Align paired headings and figure starts. Disclosure heights remain independent.
 function alignFigureStarts(){
- document.querySelectorAll('.two').forEach(pair=>{
+ document.querySelectorAll('.chart-pair').forEach(pair=>{
+  const headings=[...pair.querySelectorAll(':scope > .chart-card > h3')];
   const figures=[...pair.querySelectorAll(':scope > .chart-card > figure')];
+  headings.forEach(h=>h.style.minHeight='');
   figures.forEach(f=>f.style.marginTop='24px');
   if(window.innerWidth<1200||figures.length!==2)return;
+  const headingHeight=Math.max(...headings.map(h=>h.getBoundingClientRect().height));
+  headings.forEach(h=>h.style.minHeight=headingHeight+'px');
   const tops=figures.map(f=>f.getBoundingClientRect().top);
   figures.forEach((f,i)=>f.style.marginTop=(24+Math.max(...tops)-tops[i])+'px');
  });
