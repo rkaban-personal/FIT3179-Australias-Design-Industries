@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "description": "Selected official ANZSCO2022 to OSCA2024 conceptual correspondences. Aligned classification columns and equal-width links. Dashed means part-only on at least one side, not a smaller number of workers.",
+  "description": "Selected official ANZSCO 2022 to OSCA 2024 conceptual correspondences. Aligned classification columns and equal-width links. Dashed means part-only on at least one side, not a smaller number of workers.",
   "width": 1000,
   "height": 640,
   "padding": 0,
@@ -169,7 +169,7 @@
             "value": "#253c39"
           },
           "tooltip": {
-            "signal": "{'Classification':datum.side == 'old' ? 'ANZSCO2022' : 'OSCA2024 v1.0','Occupation':replace(datum.label,'\\n',' '),'Code':datum.code}"
+            "signal": "{'Classification':datum.side == 'old' ? 'ANZSCO 2022' : 'OSCA 2024 v1.0','Occupation':replace(datum.label,'\\n',' '),'Code':datum.code}"
           }
         }
       }
