@@ -79,61 +79,96 @@ p,figcaption,dd,li{text-wrap:pretty}
 @media(max-width:900px){.notes-heading,.notes-layout{grid-template-columns:1fr;gap:28px}.notes-heading{margin-bottom:32px}.colophon p{max-width:60ch}.publication-dates{max-width:440px}.notes-layout{gap:36px}}
 @media(max-width:520px){.brand{max-width:none;flex:1;gap:9px}.brand-mark{width:34px;height:34px}.brand span{max-width:145px}.masthead{gap:14px}.masthead>a:last-child{flex:none;max-width:86px}.field-note>summary{font-size:26px}.methods .colophon h3{font-size:28px}.detail-body{font-size:19px}}
 
-/* Laptop reading: bring each finding closer to its chart without shrinking labels. */
+/* A chart and its explanation form one reading unit. */
+.chart-copy,.chart-visual{min-width:0}
+.chart-copy>p{font-size:21px;margin-top:0;max-width:64ch}
+.chart-visual>figure{margin:24px 0 0}
+@media(max-width:520px){.chart-copy>p{font-size:20px}}
 @media screen and (min-width:901px){
- body{font-size:19px;line-height:1.5}
+ body{font-size:17px;line-height:1.5}
+ .masthead,main,footer{max-width:1280px}
+ .masthead,.hero,.chapters,.intro,.chapter,.methods,footer{padding-left:32px;padding-right:32px}
  .masthead{padding-block:16px}
- .brand{font-size:22px}
+ .brand{font-size:21px}
  .brand-mark{width:36px;height:36px}
- h1{font-size:clamp(60px,5.8vw,80px)}
- h2{font-size:clamp(36px,3.5vw,48px)}
- h3{font-size:28px}
- .hero{padding-block:44px 40px;gap:44px}
- .hero-art img{height:500px}
- .subtitle{font-size:19px;margin:18px 0}
- .dek{font-size:24px;margin:18px 0}
- .hero-copy>p:not(.dek):not(.subtitle){font-size:19px}
- .jump{font-size:18px;padding-block:10px}
- .chapters{font-size:18px;padding-block:16px}
- .intro{padding-block:36px;margin-top:36px}
- .definitions{margin-block:28px 22px;gap:36px}
+ h1{font-size:clamp(56px,5.5vw,76px)}
+ h2{font-size:38px;line-height:1.15}
+ h3{font-size:25px}
+ .hero{padding-block:40px;gap:40px}
+ .hero-art img{height:480px}
+ .subtitle{font-size:18px;margin:16px 0}
+ .dek{font-size:23px;margin:16px 0}
+ .hero-copy>p:not(.dek):not(.subtitle){font-size:18px}
+ .jump{font-size:17px;padding-block:10px}
+ .chapters{font-size:17px;padding-block:14px}
+ .intro{padding-block:32px;margin-top:32px}
+ .definitions{margin-block:24px 20px;gap:32px}
  .definitions>div{padding-top:16px}
- .definitions dt{font-size:26px}
- .definitions dd{font-size:19px;margin-top:10px}
- .definition-rule{font-size:18px;padding-top:16px}
- .chapter{padding-top:60px}
- .chapter-head{margin-bottom:30px}
- .chapter-head h2{margin-bottom:16px}
- .chapter-head p{font-size:21px}
- .chart-card,.wide{padding-block:22px 18px;margin-bottom:26px}
- .chart-pair{margin-bottom:26px;row-gap:26px}
+ .definitions dt{font-size:25px}
+ .definitions dd{font-size:17px;margin-top:10px}
+ .definition-rule{font-size:16px;padding-top:16px}
+ .chapter{padding-top:40px}
+ .chapter-head{max-width:none;margin-bottom:24px}
+ .chapter-head>div{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px;align-items:start}
+ .chapter-head h2{max-width:none;margin:0}
+ .chapter-head p{font-size:18px;margin:0;max-width:none}
+ .chapter-opening{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;margin-bottom:24px}
+ .chapter-opening .chapter-head{margin:0}
+ .chapter-opening .chapter-head>div{display:block}
+ .chapter-opening h2{margin-bottom:16px}
+ .chapter-opening>.note{font-size:16px;margin:0;padding:20px;max-width:none}
+ .chart-pair{column-gap:28px;row-gap:24px;margin-bottom:24px}
+ .chart-card,.wide{padding:16px 20px;margin-bottom:24px}
  .chart-pair>.chart-card{margin-bottom:0}
- .chart-card h3{font-size:28px;margin-bottom:10px}
- .chart-card>p{font-size:19px;margin-bottom:16px}
- .chart-card .figure-meta{margin-bottom:14px}
- .chart-card>figure{margin-top:18px}
- .how{font-size:18px!important}
- figcaption{font-size:17px;margin-top:14px;line-height:1.5}
- .chart-tools{font-size:17px;margin-top:16px;padding-top:6px}
- .chart-tools>p{margin-top:6px}
- .chart-reading-note{font-size:17px;margin-top:14px;padding-top:12px}
- .control{font-size:18px;margin-block:18px;padding-block:12px}
- .control span{font-size:17px}
+ .chart-card h3{font-size:25px;margin-bottom:8px;max-width:none}
+ .chart-card>p,.chart-copy>p{font-size:17px;margin-bottom:12px}
+ .chart-card .figure-meta{font-size:15px;margin-bottom:12px}
+ .chart-card>figure,.chart-visual>figure{margin-top:16px}
+ .how{font-size:16px!important}
+ figcaption{font-size:15px;line-height:1.5;margin-top:12px;max-width:none}
+ .chart-tools{display:grid;grid-template-columns:auto 1fr;gap:0 16px;align-items:start;font-size:15px;margin-top:12px;padding-top:4px}
+ .chart-tools>details[open]{grid-column:1/-1}
+ .chart-tools>p{justify-content:flex-end;align-items:center;gap:16px;margin:0;min-height:44px}
+ .chart-tools>details[open]+p{grid-column:1/-1;justify-content:flex-start}
+ .chart-tools summary{padding-block:10px}
+ .chart-reading-note{font-size:15px;margin-top:10px;padding-top:10px}
+ .chart-reading-note p{margin-bottom:6px}
+ .chart-reading-note .data-link{display:none}
+ .map-counts{display:flex;flex-wrap:wrap;gap:4px 20px}
+ .map-counts>div{display:flex;gap:6px;padding:0;border:0;font-size:15px}
+ .map-counts dt,.map-counts dd{white-space:nowrap}
+ .control{font-size:16px;margin-block:16px;padding-block:12px}
+ .control span{font-size:15px;min-width:0}
  select{min-height:44px;padding-block:8px}
- .note{font-size:18px;padding-block:20px;margin-bottom:28px}
- .margin-note{font-size:18px!important;padding-top:12px}
- .bridge{font-size:24px;padding-block:18px}
- .origin-list{margin-top:18px}
- .origin-list p{font-size:17px;margin-top:14px}
- .origin-list b{font-size:28px}
- .economy-key{font-size:17px;margin-top:12px;padding-block:14px}
- .closing{padding:40px;margin-top:40px}
- .closing p{font-size:21px}
- .methods{padding-block:52px;font-size:19px}
- .methods h2{font-size:38px}
- .methods .colophon h3{font-size:28px}
- .notes-heading{margin-bottom:28px}
- .field-note>summary{font-size:26px;min-height:60px;padding-block:16px}
- .detail-body{font-size:18px}
- footer{padding-block:20px}
+ .note{font-size:16px;padding:20px;margin-bottom:24px}
+ .note-pair{column-gap:68px;padding-inline:20px}
+ .chart-card>.margin-note{font-size:15px!important;padding-top:10px;margin:0}
+ .bridge{font-size:22px;padding-block:16px;max-width:none;margin:0}
+ .origin-list{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:12px}
+ .origin-list p{font-size:15px;margin-top:10px}
+ .origin-list b{font-size:25px}
+ .economy-key{font-size:15px;margin-top:12px;padding-block:12px}
+ .economy-key .data-link{display:none}
+ .closing{padding:36px;margin-top:32px}
+ .closing p{font-size:19px}
+ .methods{padding-block:44px;font-size:17px}
+ .methods h2{font-size:34px}
+ .methods .colophon h3{font-size:26px}
+ .notes-heading{margin-bottom:24px}
+ .field-note>summary{font-size:24px;min-height:56px;padding-block:16px}
+ .detail-body{font-size:17px}
+ footer{font-size:15px;padding-block:20px}
+ footer>span{font-size:19px}
+ .box-copy{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+ .box-copy h3,.box-copy .figure-meta{grid-column:1/-1}
+ .box-copy>p:not(.figure-meta){margin-bottom:0}
 }
+@media screen and (min-width:1200px){
+ .chart-split{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.75fr);gap:28px;align-items:start}
+ .chart-split .chart-visual>figure{margin-top:0}
+ .chart-copy .control{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+ .chart-copy .control select{width:100%}
+ .chart-copy .control span{flex:none}
+ .chart-copy .note{font-size:15px;padding:16px;margin:16px 0 0}
+}
+
