@@ -2,7 +2,7 @@
 'use strict';
 const views = new Map();
 const resources = new Map();
-const resourceVersion = '20261027-composition-3';
+const resourceVersion = '20261027-reading-flow-3';
 async function jsonResource(url){
  if(resources.has(url))return resources.get(url);
  const response=await fetch(url+'?v='+resourceVersion);if(!response.ok)throw Error('Could not load '+url+' ('+response.status+')');
@@ -128,7 +128,7 @@ async function renderChart(item,spec){
  if(copy.params)copy.params.forEach(p=>{if(p.name==='baseYear')p.value=settings.education;if(p.name==='chosenOrigin')p.value=settings.origin;});
  if(copy.signals)copy.signals.forEach(p=>{if(p.name==='chosenRole')p.value=settings.role;});
  if(views.has(item.id))views.get(item.id).finalize();
- try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.dataset.compact=String(window.innerWidth>=901);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding accompanies the chart; the source, limitations and equivalent data table follow.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
+ try{const result=await vegaEmbed(holder,copy,{actions:false,renderer:'svg',tooltip:{theme:'light'},defaultStyle:false});views.set(item.id,result.view);holder.dataset.rendered='true';holder.dataset.width=String(width);holder.dataset.compact=String(window.innerWidth>=901);holder.setAttribute('role','img');holder.setAttribute('aria-label',item.title+'. The finding and supporting notes accompany the chart; an equivalent data table follows.');holder.querySelector('svg')?.setAttribute('aria-hidden','true');}
  catch(error){holder.dataset.rendered='error';const box=element('p','This chart could not load. Read its data table below or download the CSV.');box.className='chart-error';holder.replaceChildren(box);console.error(item.id,error);}
 }
 async function main(){
