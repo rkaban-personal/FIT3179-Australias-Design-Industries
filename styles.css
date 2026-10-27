@@ -78,3 +78,62 @@ p,figcaption,dd,li{text-wrap:pretty}
 .sketch-description ul{margin-top:16px}
 @media(max-width:900px){.notes-heading,.notes-layout{grid-template-columns:1fr;gap:28px}.notes-heading{margin-bottom:32px}.colophon p{max-width:60ch}.publication-dates{max-width:440px}.notes-layout{gap:36px}}
 @media(max-width:520px){.brand{max-width:none;flex:1;gap:9px}.brand-mark{width:34px;height:34px}.brand span{max-width:145px}.masthead{gap:14px}.masthead>a:last-child{flex:none;max-width:86px}.field-note>summary{font-size:26px}.methods .colophon h3{font-size:28px}.detail-body{font-size:19px}}
+
+/* Laptop reading: bring each finding closer to its chart without shrinking labels. */
+@media screen and (min-width:901px){
+ body{font-size:19px;line-height:1.5}
+ .masthead{padding-block:16px}
+ .brand{font-size:22px}
+ .brand-mark{width:36px;height:36px}
+ h1{font-size:clamp(60px,5.8vw,80px)}
+ h2{font-size:clamp(36px,3.5vw,48px)}
+ h3{font-size:28px}
+ .hero{padding-block:44px 40px;gap:44px}
+ .hero-art img{height:500px}
+ .subtitle{font-size:19px;margin:18px 0}
+ .dek{font-size:24px;margin:18px 0}
+ .hero-copy>p:not(.dek):not(.subtitle){font-size:19px}
+ .jump{font-size:18px;padding-block:10px}
+ .chapters{font-size:18px;padding-block:16px}
+ .intro{padding-block:36px;margin-top:36px}
+ .definitions{margin-block:28px 22px;gap:36px}
+ .definitions>div{padding-top:16px}
+ .definitions dt{font-size:26px}
+ .definitions dd{font-size:19px;margin-top:10px}
+ .definition-rule{font-size:18px;padding-top:16px}
+ .chapter{padding-top:60px}
+ .chapter-head{margin-bottom:30px}
+ .chapter-head h2{margin-bottom:16px}
+ .chapter-head p{font-size:21px}
+ .chart-card,.wide{padding-block:22px 18px;margin-bottom:26px}
+ .chart-pair{margin-bottom:26px;row-gap:26px}
+ .chart-pair>.chart-card{margin-bottom:0}
+ .chart-card h3{font-size:28px;margin-bottom:10px}
+ .chart-card>p{font-size:19px;margin-bottom:16px}
+ .chart-card .figure-meta{margin-bottom:14px}
+ .chart-card>figure{margin-top:18px}
+ .how{font-size:18px!important}
+ figcaption{font-size:17px;margin-top:14px;line-height:1.5}
+ .chart-tools{font-size:17px;margin-top:16px;padding-top:6px}
+ .chart-tools>p{margin-top:6px}
+ .chart-reading-note{font-size:17px;margin-top:14px;padding-top:12px}
+ .control{font-size:18px;margin-block:18px;padding-block:12px}
+ .control span{font-size:17px}
+ select{min-height:44px;padding-block:8px}
+ .note{font-size:18px;padding-block:20px;margin-bottom:28px}
+ .margin-note{font-size:18px!important;padding-top:12px}
+ .bridge{font-size:24px;padding-block:18px}
+ .origin-list{margin-top:18px}
+ .origin-list p{font-size:17px;margin-top:14px}
+ .origin-list b{font-size:28px}
+ .economy-key{font-size:17px;margin-top:12px;padding-block:14px}
+ .closing{padding:40px;margin-top:40px}
+ .closing p{font-size:21px}
+ .methods{padding-block:52px;font-size:19px}
+ .methods h2{font-size:38px}
+ .methods .colophon h3{font-size:28px}
+ .notes-heading{margin-bottom:28px}
+ .field-note>summary{font-size:26px;min-height:60px;padding-block:16px}
+ .detail-body{font-size:18px}
+ footer{padding-block:20px}
+}
