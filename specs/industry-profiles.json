@@ -290,7 +290,7 @@
             "signal": "narrow ? 59 : 39"
           },
           "text": {
-            "signal": "chosenRole == 'All occupations' ? '' : ['Highlighted occupation:', chosenRole]"
+            "signal": "chosenRole == 'All occupations' ? '' : narrow ? ['Highlighted occupation:', chosenRole] : 'Highlighted occupation: ' + chosenRole"
           },
           "font": {
             "value": "\"Source Sans 3\""
