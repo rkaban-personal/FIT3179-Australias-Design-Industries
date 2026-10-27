@@ -105,7 +105,7 @@
             "range": [
               0,
               {
-                "expr": "min(1800, 0.0075 * width * width)"
+                "expr": "min(1800, 0.0075 * width * width, 0.018 * height * height)"
               }
             ],
             "zero": true
@@ -140,14 +140,14 @@
       "mark": {
         "type": "text",
         "dy": {
-          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
+          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
         },
         "fontSize": 15,
         "fontWeight": "bold",
         "stroke": "white",
         "strokeWidth": 2,
         "dx": {
-          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 8 : 0"
+          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) - 8 : 0"
         },
         "align": {
           "expr": "datum.abbr == 'ACT' ? 'left' : datum.abbr == 'VIC' ? 'right' : 'center'"
@@ -174,12 +174,12 @@
       "mark": {
         "type": "text",
         "dy": {
-          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
+          "expr": "datum.abbr == 'NSW' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) - 10 : datum.abbr == 'VIC' ? 0 : -5"
         },
         "fontSize": 15,
         "fontWeight": "bold",
         "dx": {
-          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width))) / 2) - 8 : 0"
+          "expr": "datum.abbr == 'ACT' ? (sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) + 8 : datum.abbr == 'VIC' ? -(sqrt(datum.businesses / 7000 * (min(1800, 0.0075 * width * width, 0.018 * height * height))) / 2) - 8 : 0"
         },
         "align": {
           "expr": "datum.abbr == 'ACT' ? 'left' : datum.abbr == 'VIC' ? 'right' : 'center'"
