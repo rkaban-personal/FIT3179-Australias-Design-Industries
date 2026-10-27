@@ -94,7 +94,7 @@
           },
           "axis": {
             "format": ".0%",
-            "title": "Share within each industry"
+            "title": "Share of businesses"
           }
         },
         "y2": {
