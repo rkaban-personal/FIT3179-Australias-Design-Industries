@@ -8,8 +8,8 @@
 <title>Behind everyday design: A field guide to Australia’s design industries</title>
 <link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64">
 <link rel="icon" href="assets/design-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=20261027-composition-3">
-<script src="assets/vega-6.4.0.min.js" defer></script><script src="assets/vega-lite-6.5.0.min.js" defer></script><script src="assets/vega-embed-7.3.0.min.js" defer></script><script src="app.js?v=20261027-composition-3" defer></script>
+<link rel="stylesheet" href="styles.css?v=20261027-reading-flow-3">
+<script src="assets/vega-6.4.0.min.js" defer></script><script src="assets/vega-lite-6.5.0.min.js" defer></script><script src="assets/vega-embed-7.3.0.min.js" defer></script><script src="app.js?v=20261027-reading-flow-3" defer></script>
 </head>
 <body>
 <a class="skip" href="#story">Skip to the story</a>
@@ -67,15 +67,15 @@
 <aside class="note note-pair">
 <p><strong>Read the two charts separately.</strong> The historical ANZSCO counts are not a continuous series with the newer OSCA estimates. The earlier comparison shows change within one classification, not evidence of today’s growth.</p>
 <p><strong>Keep the workforce definitions in view.</strong> Female is the source’s Census sex category, not a complete measure of gender identity. Part-time shares exclude people away from work in the reference week; COVID restrictions also affected the 2021 snapshot. The scatterplot shows association, not a cause.</p>
-</aside><article class="chart-card wide chart-split"><div class="chart-copy"><h3>The job title does not tell you the workplace</h3>
+</aside><article class="chart-card wide chart-flow"><header class="chart-heading"><h3>The job title does not tell you the workplace</h3>
 <p class="figure-meta">Industry profiles · 2021 Census</p>
-<p>Designers work beyond specialist studios. In the published profiles, <strong>22.8% of industrial designers worked in manufacturing</strong>, while <strong>22.2% of multimedia designers worked in education and training</strong>.</p>
-<p class="how">Read each line from top to bottom. Every horizontal axis uses the same 0–100% scale. A line describes one occupation across five selected employer industries; it does not trace people moving between them.</p>
-<div class="control">
+</header><div class="control">
 <label for="role-profile">Highlight an occupation</label><select id="role-profile" aria-describedby="profile-status"><option value="All occupations">Overview (three examples)</option></select><span id="profile-status" role="status">Three example profiles are emphasised; all eight remain visible.</span>
 </div>
-</div><div class="chart-visual"><figure data-chart="industry-profiles"><div class="chart" id="chart-industry-profiles"></div>
-<figcaption>Jobs and Skills Australia, <a href="https://www.jobsandskills.gov.au/sites/default/files/2026-07/osca_occupation_data_-_2021_census.xlsx">OSCA occupation data, 2021 Census, Table 2</a>. Experimental estimates. Five selected industries, not the whole distribution; percentages are published values and are not rescaled to sum to 100%. No selected cell is suppressed.</figcaption></figure></div></article><p class="bridge">The person is only one lens. Next, we change the question: what can we learn from the businesses themselves?</p></section>
+<figure data-chart="industry-profiles"><div class="chart" id="chart-industry-profiles"></div>
+<div class="chart-explanation"><p>Designers work beyond specialist studios. In the published profiles, <strong>22.8% of industrial designers worked in manufacturing</strong>, while <strong>22.2% of multimedia designers worked in education and training</strong>.</p>
+<p class="how">Read each line from top to bottom. Every horizontal axis uses the same 0–100% scale. A line describes one occupation across five selected employer industries; it does not trace people moving between them.</p>
+</div><figcaption>Jobs and Skills Australia, <a href="https://www.jobsandskills.gov.au/sites/default/files/2026-07/osca_occupation_data_-_2021_census.xlsx">OSCA occupation data, 2021 Census, Table 2</a>. Experimental estimates. Five selected industries, not the whole distribution; percentages are published values and are not rescaled to sum to 100%. No selected cell is suppressed.</figcaption></figure></article><p class="bridge">The person is only one lens. Next, we change the question: what can we learn from the businesses themselves?</p></section>
 <section id="businesses" class="chapter"><div class="chapter-opening"><div class="chapter-head"><div>
 <h2>Now step into the studio.</h2>
 <p>From the person at work, we turn to the business behind them. In June 2025, Australia had <strong>17,498 businesses</strong> in “Other Specialised Design Services”, a category that includes graphic, fashion and interior design services.</p>
@@ -135,44 +135,43 @@
 <h2>Some design work hides in plain sight.</h2>
 <p>The chair brought us to a designer. The studio brought us to a business class. Neither captures every place design contributes value. An older IP Australia study widened the frame to architecture, software and design-related supply chains.</p>
 </div></div>
-<article class="chart-card wide chart-split"><div class="chart-copy"><h3>Services, architecture and digital activities dominate this estimate</h3>
+<article class="chart-card wide chart-flow"><header class="chart-heading"><h3>Services, architecture and digital activities dominate this estimate</h3>
 <p class="figure-meta">Historical economic benchmark</p>
-<p>The report estimates <strong>A$67.507 billion in value added</strong>, a contribution to gross domestic product (GDP). The largest sector accounts for <strong>A$44.534 billion</strong>. Rectangle areas show these contributions; lighter rectangles represent designers working outside the defined design industries.</p>
-<aside class="note emphasis"><strong>This is not Australia’s current design-industry revenue.</strong> Values are in constant 2019 Australian dollars. Industry contributions average financial years 2008–09 to 2016–17; embedded contributions average 2011 and 2016 and are experimental. The treemap reproduces the report’s mixed-period benchmark.</aside></div><div class="chart-visual"><figure data-chart="economy"><div class="chart" id="chart-economy"></div>
+</header><figure data-chart="economy"><div class="chart" id="chart-economy"></div>
 <div class="economy-key">
 <strong>A key to the numbered sectors</strong><p>The numbered groups are: <strong>1</strong> Services / architecture / digital; <strong>2</strong> Fashion; <strong>3</strong> Furniture; <strong>4</strong> Visual arts / crafts. Within each group, lighter rectangles show embedded design.</p>
 <p><strong>A small rectangle still has a value.</strong> The smallest component is embedded design in visual arts and crafts: <strong>A$220 million</strong> in 2019 prices. Read the exact values to compare small rectangles.</p>
 <button class="data-link" type="button" data-open-table="data-economy" aria-controls="data-economy">Read all eight economic components</button>
 </div>
-<figcaption><a href="https://www.ipaustralia.gov.au/about-us/our-agency/our-research/~/-/media/Project/IPA/IPAustralia/PDF/defining-design-ip-australia-report.pdf?rev=fb5a9626aa8f48fe93b5179c47a304f3">IP Australia, Defining Design (2020)</a>, Table 1, p. 10; interpretation, p. 11. Source estimates were checked; the underlying economic model was not independently recreated. Use the data table for exact component comparisons.</figcaption></figure></div></article></section>
+<div class="chart-explanation"><p>The report estimates <strong>A$67.507 billion in value added</strong>, a contribution to gross domestic product (GDP). The largest sector accounts for <strong>A$44.534 billion</strong>. Rectangle areas show these contributions; lighter rectangles represent designers working outside the defined design industries.</p>
+<aside class="note emphasis"><strong>This is not Australia’s current design-industry revenue.</strong> Values are in constant 2019 Australian dollars. Industry contributions average financial years 2008–09 to 2016–17; embedded contributions average 2011 and 2016 and are experimental. The treemap reproduces the report’s mixed-period benchmark.</aside></div><figcaption><a href="https://www.ipaustralia.gov.au/about-us/our-agency/our-research/~/-/media/Project/IPA/IPAustralia/PDF/defining-design-ip-australia-report.pdf?rev=fb5a9626aa8f48fe93b5179c47a304f3">IP Australia, Defining Design (2020)</a>, Table 1, p. 10; interpretation, p. 11. Source estimates were checked; the underlying economic model was not independently recreated. Use the data table for exact component comparisons.</figcaption></figure></article></section>
 <section id="learning" class="chapter"><div class="chapter-head"><div>
 <h2>The classroom opens another door.</h2>
 <p>The wider view of design also leads us to the classroom: creative arts, built-environment courses and digital study. Here we count students beginning a course in these broad fields. They are not all design students, and these figures do not track their journey into work.</p>
 </div></div>
-<article class="chart-card wide chart-split"><div class="chart-copy"><h3>IT commencements almost doubled from 2015</h3>
+<article class="chart-card wide chart-flow"><header class="chart-heading"><h3>IT commencements almost doubled from 2015</h3>
 <p class="figure-meta">Indexed heatmap · 2012–2024</p>
-<p>Compared with 2015, domestic commencements in 2024 were <strong>91.4% higher</strong> in Information Technology, <strong>23.4% higher</strong> in Architecture and Building and <strong>21.8% lower</strong> in Creative Arts.</p>
-<p class="how">A commencement means a student enrolling in a particular course at a particular institution for the first time. In this index, 100 is the selected baseline; 120 means 20% more commencements. Equal indices do not mean equal student numbers.</p>
-<div class="control">
+</header><div class="control">
 <label for="base-year">Index baseline</label><select id="base-year" aria-describedby="education-status"><option value="2015">2015 = 100</option>
 <option value="2012">2012 = 100</option></select><span id="education-status" role="status">Colours compare each year with 2015. The headline comparison stays 2015–2024.</span>
 </div>
-</div><div class="chart-visual"><figure data-chart="education"><div class="chart" id="chart-education"></div>
-<figcaption>Domestic commencing higher education students, all course levels. <a href="https://www.education.gov.au/higher-education-statistics/student-data/selected-higher-education-statistics-2023-student-data/key-findings-2023-student-data">Department of Education 2023 key findings</a> and <a href="https://www.education.gov.au/higher-education-statistics/student-data/selected-higher-education-statistics-2024-student-data/key-findings-2024-higher-education-student-statistics">2024 key findings, Table 2</a>; <a href="https://www.education.gov.au/higher-education-statistics/resources/2023-section-1-commencing-students">commencing-student definition</a>. These fields overlap and must not be summed into a unique-student total. This is not a flow into design jobs.</figcaption></figure></div></article></section>
+<figure data-chart="education"><div class="chart" id="chart-education"></div>
+<div class="chart-explanation"><p>Compared with 2015, domestic commencements in 2024 were <strong>91.4% higher</strong> in Information Technology, <strong>23.4% higher</strong> in Architecture and Building and <strong>21.8% lower</strong> in Creative Arts.</p>
+<p class="how">A commencement means a student enrolling in a particular course at a particular institution for the first time. In this index, 100 is the selected baseline; 120 means 20% more commencements. Equal indices do not mean equal student numbers.</p>
+</div><figcaption>Domestic commencing higher education students, all course levels. <a href="https://www.education.gov.au/higher-education-statistics/student-data/selected-higher-education-statistics-2023-student-data/key-findings-2023-student-data">Department of Education 2023 key findings</a> and <a href="https://www.education.gov.au/higher-education-statistics/student-data/selected-higher-education-statistics-2024-student-data/key-findings-2024-higher-education-student-statistics">2024 key findings, Table 2</a>; <a href="https://www.education.gov.au/higher-education-statistics/resources/2023-section-1-commencing-students">commencing-student definition</a>. These fields overlap and must not be summed into a unique-student total. This is not a flow into design jobs.</figcaption></figure></article></section>
 <section id="ideas" class="chapter"><div class="chapter-head"><div>
 <h2>An idea can cross a border.</h2>
 <p>Return to the shape of the chair or the cut of the garment. A design right can protect a product’s visual appearance. Applications reveal one formal part of design activity, including the interest of overseas applicants in protection in Australia.</p>
 </div></div>
-<article class="chart-card wide chart-split"><div class="chart-copy"><h3>Overseas filings account for most of the increase</h3>
+<article class="chart-card wide chart-flow"><header class="chart-heading"><h3>Overseas filings account for most of the increase</h3>
 <p class="figure-meta">Annual applications · 2016–2025</p>
-<p>Applications reached <strong>10,296 in 2025</strong>. Non-residents accounted for <strong>7,218, or 70.1%</strong>. Resident filings were 3,078, compared with 2,749 in 2016.</p>
+</header><figure data-chart="ip-history"><div class="chart" id="chart-ip-history"></div>
+<div class="chart-explanation"><p>Applications reached <strong>10,296 in 2025</strong>. Non-residents accounted for <strong>7,218, or 70.1%</strong>. Resident filings were 3,078, compared with 2,749 in 2016.</p>
 <p class="how">Resident and non-resident refer to applicants based in Australia and overseas, respectively. The chart’s endpoint notes compare 2025 with 2016.</p>
-</div><div class="chart-visual"><figure data-chart="ip-history"><div class="chart" id="chart-ip-history"></div>
-<figcaption><a href="https://www.ipaustralia.gov.au/tools-and-research/professional-resources/data-research-and-reports/australian-ip-report-2026/design-rights/resident-and-non-resident-filings-and-locations-of-origin">Australian IP Report 2026</a>, Figures 4.1–4.2, pp. 57–58. All values use the 2026 report, including its revisions to earlier years. Applications, registrations and certifications are different events; the annual totals do not follow the same applications through each stage.</figcaption></figure></div></article>
-<article class="chart-card wide chart-split"><div class="chart-copy"><h3>The United States and China lead the published origins</h3>
+</div><figcaption><a href="https://www.ipaustralia.gov.au/tools-and-research/professional-resources/data-research-and-reports/australian-ip-report-2026/design-rights/resident-and-non-resident-filings-and-locations-of-origin">Australian IP Report 2026</a>, Figures 4.1–4.2, pp. 57–58. All values use the 2026 report, including its revisions to earlier years. Applications, registrations and certifications are different events; the annual totals do not follow the same applications through each stage.</figcaption></figure></article>
+<article class="chart-card wide chart-flow"><header class="chart-heading"><h3>The United States and China lead the published origins</h3>
 <p class="figure-meta">International filing relationships · 2025</p>
-<p>The five largest overseas origins account for <strong>5,205 filings, or 72.1% of non-resident applications</strong>. Another <strong>2,013 overseas applications</strong> are outside this map.</p>
-<div class="control">
+</header><div class="control">
 <label for="origin">Highlight an origin</label><select id="origin" aria-describedby="flow-status"><option>All five</option>
 <option>United States</option>
 <option>China</option>
@@ -180,7 +179,7 @@
 <option>Switzerland</option>
 <option>Hong Kong</option></select><span id="flow-status" role="status">All five published origins are highlighted.</span>
 </div>
-</div><div class="chart-visual"><figure data-chart="filing-map"><div class="chart" id="chart-filing-map"></div>
+<figure data-chart="filing-map"><div class="chart" id="chart-filing-map"></div>
 <div class="origin-list" aria-label="Five mapped filing counts" role="list">
 <p role="listitem"><span>1 · United States</span><b>2,575</b></p>
 <p role="listitem"><span>2 · China</span><b>1,715</b></p>
@@ -188,16 +187,17 @@
 <p role="listitem"><span>4 · Switzerland</span><b>298</b></p>
 <p role="listitem"><span>5 · Hong Kong</span><b>248</b></p>
 </div>
-<figcaption>Line width = number of applications to Australia. Lines show filing relationships, <strong>not trade, migration or observed routes</strong>. Equal Earth projection centred on the Pacific; points use cartographic reference locations. <a href="https://www.ipaustralia.gov.au/tools-and-research/professional-resources/data-research-and-reports/australian-ip-report-2026/design-rights/resident-and-non-resident-filings-and-locations-of-origin">Australian IP Report 2026</a>, Figure 4.3, p. 59; <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth</a> basemap. Hong Kong follows the source’s separately reported origin category.</figcaption></figure></div></article></section>
+<div class="chart-explanation"><p>The five largest overseas origins account for <strong>5,205 filings, or 72.1% of non-resident applications</strong>.</p><p>Another <strong>2,013 overseas applications</strong> are outside this map.</p>
+</div><figcaption>Line width = number of applications to Australia. Lines show filing relationships, <strong>not trade, migration or observed routes</strong>. Equal Earth projection centred on the Pacific; points use cartographic reference locations. <a href="https://www.ipaustralia.gov.au/tools-and-research/professional-resources/data-research-and-reports/australian-ip-report-2026/design-rights/resident-and-non-resident-filings-and-locations-of-origin">Australian IP Report 2026</a>, Figure 4.3, p. 59; <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth</a> basemap. Hong Kong follows the source’s separately reported origin category.</figcaption></figure></article></section>
 <section id="definitions" class="chapter"><div class="chapter-head"><div>
 <h2>The last twist is in the label.</h2>
 <p>Just when a count seems settled, its definition can change. Australia’s newer occupation classification splits some categories and combines parts of others. A new name does not necessarily mean a new job.</p>
 </div></div>
-<article class="chart-card wide chart-split"><div class="chart-copy"><h3>Follow the definitions before comparing the numbers</h3>
+<article class="chart-card wide chart-flow"><header class="chart-heading"><h3>Follow the definitions before comparing the numbers</h3>
 <p class="figure-meta">Occupation correspondence · ANZSCO 2022 to OSCA 2024</p>
-<p>For example, the older Industrial Designer category partly corresponds to both Industrial Designer and Textile Designer in OSCA. These are official conceptual links, not movements of workers.</p>
-</div><div class="chart-visual"><figure data-chart="classification"><div class="chart" id="chart-classification"></div>
-<figcaption><strong>Equal-width links; no worker counts.</strong> Dashed = part-only on at least one side; solid = full correspondence on both sides. Selected relationships only. <a href="https://www.abs.gov.au/statistics/classifications/osca-occupation-standard-classification-australia/2024-version-1-0/data-downloads/OSCA%20correspondence%20tables%20v2.xlsx">ABS correspondence tables v2</a>, Tables 5–6. This diagram uses the 2022 ANZSCO version and does not bridge the earlier historical chart into an unchanged time series.</figcaption></figure></div></article>
+</header><figure data-chart="classification"><div class="chart" id="chart-classification"></div>
+<div class="chart-explanation"><p>For example, the older Industrial Designer category partly corresponds to both Industrial Designer and Textile Designer in OSCA.</p><p>These are official conceptual links, not movements of workers.</p>
+</div><figcaption><strong>Equal-width links; no worker counts.</strong> Dashed = part-only on at least one side; solid = full correspondence on both sides. Selected relationships only. <a href="https://www.abs.gov.au/statistics/classifications/osca-occupation-standard-classification-australia/2024-version-1-0/data-downloads/OSCA%20correspondence%20tables%20v2.xlsx">ABS correspondence tables v2</a>, Tables 5–6. This diagram uses the 2022 ANZSCO version and does not bridge the earlier historical chart into an unchanged time series.</figcaption></figure></article>
 <div class="closing">
 <h2>The room looks the same.<br>The questions have changed.</h2>
 <p>The chair is still a chair. But behind it, we can now ask about a person’s work, a business’s main activity, or a protected appearance. The same habit travels well, from Australia to a classroom in Malaysia.</p>
