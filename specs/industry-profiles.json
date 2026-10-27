@@ -527,7 +527,7 @@
             "value": 0
           },
           "y": {
-            "value": 610
+            "signal": "height-50"
           },
           "text": {
             "signal": "narrow ? ['One path = one occupation.', 'Five sectors do not total 100%.'] : 'Each path follows one occupation. These five sectors do not sum to 100%.'"
